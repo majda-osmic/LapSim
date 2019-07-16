@@ -1,9 +1,26 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Team</ion-title>
-  </ion-toolbar>
+    <ion-title>{{team.name}}</ion-title>
+    <ion-title>{{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}</ion-title>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+      <ion-row>
+          <ion-col *ngFor="let simulation of simulations">
+            <!-- todo: split into columns depending on the screen size-->
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>
+                  {{simulation.name}}
+                </ion-card-title>
+                <ion-card-subtitle>
+                  {{simulation.cpus}}
+                </ion-card-subtitle>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+    
+        </ion-row>
+  </ion-grid>
 
 </ion-content>

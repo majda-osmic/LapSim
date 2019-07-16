@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TeamsService } from '../services/teams.service';
+import { ITeam, ISimulation } from '../interfaces';
+import { SimulationsService } from '../services/simulations.service';
 
 @Component({
   selector: 'app-team',
@@ -7,12 +10,19 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./team.page.scss'],
 })
 export class TeamPage implements OnInit {
-  private id: number;
-  name: string;
+  team: ITeam;
+  simulatons: ISimulation[];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+              private teamService: TeamsService,
+              private simulationService: SimulationsService) { }
 
   ngOnInit() {
-    this.id = +this.route.snapshot.params.id;
+     const id = +this.route.snapshot.params.id;
+     this.team = this.teamService.getTeam(id);
+     const accounts = this.team.accounts.map(account => account.id);
+     this.simulatons = this.simulationService.getSimulations(accounts);   
+     // TODO: if error occures here, nothing is loaded, maybe display error page?
   }
+
 }

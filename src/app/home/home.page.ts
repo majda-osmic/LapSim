@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ITeam } from '../interfaces';
-import { TeamsService } from '../teams.service';
+import { TeamsService } from '../services/teams.service';
 import { NavController } from '@ionic/angular';
 
 @Component({

@@ -9,10 +9,13 @@ export class SimulationsService {
   private accounts: IAccountDetail[];
   constructor() { }
 
+  getAccountDetails(accounts: number[]): IAccountDetail[] {
+    return this.getAllAccounts().filter(account => account.id in accounts);
+  }
 
   getSimulations(accounts: number[]): ISimulation[] {
-    const matchingSimulations =  this.getAllAccounts().filter(account => account.id in accounts).map(account => account.simulations);
-    return [].concat(...matchingSimulations); // flatten
+    const matchingSimulations =  this.getAccountDetails(accounts).map(account => account.simulations);
+    return [].concat(... matchingSimulations); // flatten
   }
 
   private getAllAccounts(): IAccountDetail[] {

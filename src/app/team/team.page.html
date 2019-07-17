@@ -1,11 +1,24 @@
 <ion-header>
   <ion-title>{{team.name}}</ion-title>
   <ion-title>{{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}</ion-title>
-  <ion-text></ion-text>
 </ion-header>
 
 <ion-content>
- <ion-list>
-   <ion-item *ngFor="let sim of simulations">{{sim.name}}</ion-item>
- </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!--todo: collapse this one small screen, or show in a different way-->
+        <ion-list *ngFor="let account of team.accounts">
+          <ion-item>
+            <ion-label>{{account.name}}</ion-label>
+            <ion-checkbox [(ngModel)]="accountCheckedMapping[account.id]" (ionChange)="onAccountCheckChange(account.id)"></ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+      <ion-col *ngFor="let sim of simulations">
+        <ion-text>{{sim.name}}</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

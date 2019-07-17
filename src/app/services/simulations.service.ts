@@ -11,7 +11,8 @@ export class SimulationsService {
 
 
   getSimulations(accounts: number[]): ISimulation[] {
-    return this.getAllAccounts().find(account => account.id).simulations;
+    const matchingSimulations =  this.getAllAccounts().filter(account => account.id in accounts).map(account => account.simulations);
+    return [].concat(...matchingSimulations); // flatten
   }
 
   private getAllAccounts(): IAccountDetail[] {

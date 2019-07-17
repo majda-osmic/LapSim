@@ -11,7 +11,7 @@ import { SimulationsService } from '../services/simulations.service';
 })
 export class TeamPage implements OnInit {
   team: ITeam;
-  simulatons: ISimulation[];
+  simulations: ISimulation[];
 
   constructor(private route: ActivatedRoute,
               private teamService: TeamsService,
@@ -21,7 +21,7 @@ export class TeamPage implements OnInit {
      const id = +this.route.snapshot.params.id;
      this.team = this.teamService.getTeam(id);
      const accounts = this.team.accounts.map(account => account.id);
-     this.simulatons = this.simulationService.getSimulations(accounts);   
+     this.simulations = this.simulationService.getSimulations(accounts);
      // TODO: if error occures here, nothing is loaded, maybe display error page?
   }
 

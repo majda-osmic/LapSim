@@ -56,16 +56,16 @@ export class SimulationsService {
 
   private createMockSimulations(): ISimulation[] {
     const simulations = [
-      { id:  1, name: 'sim 1', cpus: 25, usedBudget: 58 },
-      { id:  2, name: 'sim 2', cpus: 25, usedBudget: 126 },
-      { id:  3, name: 'large sim', cpus: 100, usedBudget: 236 },
-      { id:  4, name: 'front damper variation', cpus: 136, usedBudget: 59 },
-      { id:  5, name: 'rear damper variation', cpus: 125, usedBudget: 69 },
-      { id:  6, name: 'soft tyres', cpus: 125, usedBudget: 69 },
-      { id:  7, name: 'super soft', cpus: 120, usedBudget: 87},
-      { id:  8, name: 'another large sim', cpus: 350, usedBudget: 200 },
-      { id:  9, name: 'slightly larger sim', cpus: 250, usedBudget: 258 },
-      { id: 10, name: 'not so large', cpus: 180, usedBudget: 147 },
+      { id:  1, name: 'sim 1', cpus: 25, usedBudget: 58, runs: 400, location: 'West US' },
+      { id:  2, name: 'sim 2', cpus: 25, usedBudget: 126, runs: 400, location: 'West US' },
+      { id:  3, name: 'large sim', cpus: 100, usedBudget: 236, runs: 400, location: 'East US' },
+      { id:  4, name: 'front damper variation', cpus: 136, usedBudget: 59, runs: 400, location: 'West Europe' },
+      { id:  5, name: 'rear damper variation', cpus: 125, usedBudget: 69, runs: 400, location: 'Central Europe' },
+      { id:  6, name: 'soft tyres', cpus: 125, usedBudget: 69, runs: 400, location: 'West US' },
+      { id:  7, name: 'super soft', cpus: 120, usedBudget: 87, runs: 400, location: 'Central Europe'},
+      { id:  8, name: 'another large sim', cpus: 350, usedBudget: 200, runs: 400, location: 'East US' },
+      { id:  9, name: 'slightly larger sim', cpus: 250, usedBudget: 258, runs: 400, location: 'Central Europe' },
+      { id: 10, name: 'not so large', cpus: 180, usedBudget: 147, runs: 400, location: 'North Europe' },
     ];
     return simulations;
   }

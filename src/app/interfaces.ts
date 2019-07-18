@@ -27,6 +27,8 @@ export interface ISimulation {
     // endTime: Date;
     cpus: number;
     usedBudget: number;
+    runs: number;
+    location: string;
 }
 
 export interface ISoftwarePackage {

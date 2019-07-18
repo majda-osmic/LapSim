@@ -10,8 +10,10 @@
         </ion-item>
         <ion-progress-bar [value]="progress"></ion-progress-bar>
 
+        <!-- todo: collapse this one small screen, or show in a different way-->
+        <!-- todo: put this within a different scroll-->
+        <!-- todo: put  simulations in a different component, add filtering logic-->
 
-        <!--todo: collapse this one small screen, or show in a different way-->
         <ion-list *ngFor="let account of team.accounts">
           <ion-item>
             <ion-checkbox [(ngModel)]="accountCheckedMapping[account.id]"
@@ -30,13 +32,15 @@
       </ion-col>
 
       <ion-col>
-        <ion-list-header [hidden]="simulations.length > 0">
-          No Simulations Found
-        </ion-list-header>
+        <ion-chip color="warning" [hidden]="simulations.length > 0">
+          No account selected
+        </ion-chip>
         <ion-list *ngFor="let sim of simulations">
           <ion-item>
             <ion-label>
-              <h2> {{sim.name}}</h2>
+              <h3>{{sim.name}}</h3>
+              <p> {{sim.runs}} runs on {{sim.cpus}} CPUs</p>
+              <p> {{sim.location}}</p>
             </ion-label>
             <ion-label>
               <p>Budget: {{sim.usedBudget}}</p>

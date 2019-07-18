@@ -17,7 +17,7 @@ export interface IAccountInfo {
 export interface IAccountDetail {
     id: number;
     simulations: ISimulation[];
-    // softwarePackage: ISoftwarePackage;
+    softwarePackage: ISoftwarePackage;
 }
 
 export interface ISimulation {
@@ -30,12 +30,11 @@ export interface ISimulation {
 }
 
 export interface ISoftwarePackage {
-    software: ISoftware;
+    timestamp: Date;
+    software: ISoftware[];
 }
 
 export interface ISoftware {
-    id: number;
     name: string;
     version: string;
-    timestamp: Date;
 }

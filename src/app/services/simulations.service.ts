@@ -10,7 +10,7 @@ export class SimulationsService {
   constructor() { }
 
   getAccountDetails(accounts: number[]): IAccountDetail[] {
-    return this.getAllAccounts().filter(account => account.id in accounts);
+    return this.getAllAccounts().filter(account => accounts.includes(account.id));
   }
 
   getSimulations(accounts: number[]): ISimulation[] {
@@ -43,6 +43,24 @@ export class SimulationsService {
           name: 'sim2',
           cpus: 25,
           usedBudget: 58,
+        }]
+      },
+      {
+        id: 3,
+        simulations: [{
+          id: 5,
+          name: 'large sim',
+          cpus: 100,
+          usedBudget: 236,
+        }]
+      },
+      {
+        id: 7,
+        simulations: [{
+          id: 7,
+          name: 'another large sim',
+          cpus: 120,
+          usedBudget: 258,
         }]
       }];
 

@@ -1,45 +1,45 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-segment>
-      <ion-text>
-
-        <h3> {{team.name}} </h3>
-        <h4> {{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}</h4>
-      </ion-text>
-    </ion-segment>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <ion-grid>
     <ion-row>
       <ion-col class="col-separator">
+        <ion-item lines="none">
+          <ion-title class="ion-padding">{{team.name}} </ion-title>
+          <ion-badge slot="end">
+             {{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}
+            </ion-badge>
+        </ion-item>
+        <ion-progress-bar [value]="progress"></ion-progress-bar>
+
+
         <!--todo: collapse this one small screen, or show in a different way-->
         <ion-list *ngFor="let account of team.accounts">
           <ion-item>
-            <ion-label>
+            <ion-checkbox [(ngModel)]="accountCheckedMapping[account.id]"
+              (ionChange)="onAccountCheckChange(account.id)"></ion-checkbox>
+            <ion-label class="account-details">
               <h3>{{account.name}}</h3>
               <p>CPUs: {{account.cpus}}</p>
             </ion-label>
-            <ion-checkbox slot="end" [(ngModel)]="accountCheckedMapping[account.id]"
-              (ionChange)="onAccountCheckChange(account.id)"></ion-checkbox>
           </ion-item>
         </ion-list>
-      </ion-col>
 
+        <ion-button (click)="showAccountDetails=!showAccountDetails" >
+          <ion-icon name="arrow-dropleft" [hidden]="showAccountDetails === false"></ion-icon>
+          <ion-icon name="arrow-dropright" [hidden]="showAccountDetails === true"></ion-icon>
+        </ion-button>
+      </ion-col>
 
       <ion-col>
         <ion-list-header [hidden]="simulations.length > 0">
           No Simulations Found
         </ion-list-header>
-
         <ion-list *ngFor="let sim of simulations">
           <ion-item>
             <ion-label>
               <h2> {{sim.name}}</h2>
             </ion-label>
             <ion-label>
-                <p>Budget: {{sim.usedBudget}}</p>
+              <p>Budget: {{sim.usedBudget}}</p>
             </ion-label>
           </ion-item>
         </ion-list>

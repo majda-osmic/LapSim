@@ -26,6 +26,7 @@ export class TeamPage implements OnInit {
      this.accountDetails = this.simulationService.getAccountDetails(accountIds);
      this.accountCheckedMapping = [];
      this.team.accounts.forEach(account => this.accountCheckedMapping[account.id] = true);
+     // TODO: these should be saved into user settings
 
      this.setVisibleSimulations();
      // TODO: if error occures here, nothing is loaded, maybe display error page?

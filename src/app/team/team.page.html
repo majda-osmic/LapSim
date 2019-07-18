@@ -1,6 +1,13 @@
 <ion-header>
-  <ion-title>{{team.name}}</ion-title>
-  <ion-title>{{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}</ion-title>
+  <ion-toolbar>
+    <ion-segment>
+      <ion-text>
+
+        <h3> {{team.name}} </h3>
+        <h4> {{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}</h4>
+      </ion-text>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -18,17 +25,24 @@
               (ionChange)="onAccountCheckChange(account.id)"></ion-checkbox>
           </ion-item>
         </ion-list>
-
       </ion-col>
 
 
       <ion-col>
-        <p *ngIf="simulations.length === 0">
-          <ion-text>No sims available!</ion-text>
-        </p>
-        <div *ngFor="let sim of simulations">
-          <ion-text>{{sim.name}}</ion-text>
-        </div>
+        <ion-list-header [hidden]="simulations.length > 0">
+          No Simulations Found
+        </ion-list-header>
+
+        <ion-list *ngFor="let sim of simulations">
+          <ion-item>
+            <ion-label>
+              <h2> {{sim.name}}</h2>
+            </ion-label>
+            <ion-label>
+                <p>Budget: {{sim.usedBudget}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
       </ion-col>
     </ion-row>
   </ion-grid>

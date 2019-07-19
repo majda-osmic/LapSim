@@ -23,8 +23,8 @@ export interface IAccountDetail {
 export interface ISimulation {
     id: number;
     name: string;
-    // startTime: Date;
-    // endTime: Date;
+    startTime: Date;
+    endTime: Date;
     cpus: number;
     usedBudget: number;
     runs: number;

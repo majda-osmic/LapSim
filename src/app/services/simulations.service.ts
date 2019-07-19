@@ -56,16 +56,18 @@ export class SimulationsService {
 
   private createMockSimulations(): ISimulation[] {
     const simulations = [
-      { id:  1, name: 'sim 1', cpus: 25, usedBudget: 58, runs: 400, location: 'West US' },
-      { id:  2, name: 'sim 2', cpus: 25, usedBudget: 126, runs: 400, location: 'West US' },
-      { id:  3, name: 'large sim', cpus: 100, usedBudget: 236, runs: 400, location: 'East US' },
-      { id:  4, name: 'front damper variation', cpus: 136, usedBudget: 59, runs: 400, location: 'West Europe' },
-      { id:  5, name: 'rear damper variation', cpus: 125, usedBudget: 69, runs: 400, location: 'Central Europe' },
-      { id:  6, name: 'soft tyres', cpus: 125, usedBudget: 69, runs: 400, location: 'West US' },
-      { id:  7, name: 'super soft', cpus: 120, usedBudget: 87, runs: 400, location: 'Central Europe'},
-      { id:  8, name: 'another large sim', cpus: 350, usedBudget: 200, runs: 400, location: 'East US' },
-      { id:  9, name: 'slightly larger sim', cpus: 250, usedBudget: 258, runs: 400, location: 'Central Europe' },
-      { id: 10, name: 'not so large', cpus: 180, usedBudget: 147, runs: 400, location: 'North Europe' },
+        // tslint:disable: max-line-length
+      { id:  1, startTime: new Date(2019, 1, 6, 12, 38, 45), endTime: new Date(2019, 1, 6, 13, 56, 21), name: 'Sim 1',                  cpus: 25,  usedBudget: 58,  runs: 400, location: 'West US' },
+      { id:  2, startTime: new Date(), endTime: new Date(), name: 'Sim 2',                  cpus: 25,  usedBudget: 126, runs: 400, location: 'West US' },
+      { id:  3, startTime: new Date(), endTime: new Date(), name: 'Large sim',              cpus: 100, usedBudget: 236, runs: 400, location: 'East US' },
+      { id:  4, startTime: new Date(), endTime: new Date(), name: 'Front Damper Variation', cpus: 136, usedBudget: 59,  runs: 400, location: 'West Europe' },
+      { id:  5, startTime: new Date(), endTime: new Date(), name: 'Rear Damper Variation',  cpus: 125, usedBudget: 69,  runs: 400, location: 'Central Europe' },
+      { id:  6, startTime: new Date(), endTime: new Date(), name: 'Soft Tyres',             cpus: 125, usedBudget: 69,  runs: 400, location: 'West US' },
+      { id:  7, startTime: new Date(), endTime: new Date(), name: 'Super Soft',             cpus: 120, usedBudget: 87,  runs: 400, location: 'Central Europe'},
+      { id:  8, startTime: new Date(), endTime: new Date(), name: 'Another Large Sim',      cpus: 350, usedBudget: 200, runs: 400, location: 'East US' },
+      { id:  9, startTime: new Date(), endTime: new Date(), name: 'Slightly Larger Sim',    cpus: 250, usedBudget: 258, runs: 400, location: 'Central Europe' },
+      { id: 10, startTime: new Date(), endTime: new Date(), name: 'Not so large',           cpus: 180, usedBudget: 147, runs: 400, location: 'North Europe' },
+      // tslint:enable: max-line-length
     ];
     return simulations;
   }

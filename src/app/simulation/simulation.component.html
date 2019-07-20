@@ -1,0 +1,33 @@
+<ion-grid>
+    <ion-row>
+      <h5>{{simulation.name}}</h5>
+    </ion-row>
+    <ion-row>
+      <ion-col> {{simulation.runs}} sims </ion-col>
+      <ion-col>
+        <ng-template let-timeSpan="aVariable"
+          [ngTemplateOutletContext]="{ aVariable: +(simulation.endTime) - +(simulation.startTime) }"
+          [ngTemplateOutlet]="selfie" #selfie>
+          in {{timeSpan}} time
+        </ng-template>
+      </ion-col>
+      <ion-col> on {{simulation.cpus}} CPUs </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>
+          <p> {{simulation.startTime.toLocaleString()}}</p>
+        </ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>
+          <p> {{simulation.location}}</p>
+        </ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>
+          <p>Budget: {{simulation.usedBudget}}</p>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>

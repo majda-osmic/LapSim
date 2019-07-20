@@ -26,7 +26,6 @@ export class TeamPage implements OnInit {
      const id = +this.route.snapshot.params.id;
      this.team = this.teamService.getTeam(id);
      this.progress = this.team.usedBudget / this.team.budget;
-     console.log('progress ' + this.progress);
      const accountIds = this.team.accounts.map(account => account.id);
      this.accountDetails = this.simulationService.getAccountDetails(accountIds);
      this.accountCheckedMapping = [];

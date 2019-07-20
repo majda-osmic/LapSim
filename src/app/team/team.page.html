@@ -12,7 +12,6 @@
 
         <!-- todo: collapse this one small screen, or show in a different way-->
         <!-- todo: put this within a different scroll-->
-        <!-- todo: put  simulations in a different component, add filtering logic-->
         <!-- todo: add a button for viewing software package history (different page)-->
 
         <ion-list *ngFor="let account of team.accounts">
@@ -38,39 +37,7 @@
         </ion-chip>
         <ion-list *ngFor="let sim of simulations">
           <ion-item>
-            <ion-grid>
-              <ion-row>
-                <h5>{{sim.name}}</h5>
-              </ion-row>
-              <ion-row>
-                <ion-col> {{sim.runs}} sims </ion-col>
-                <ion-col>
-                  <ng-template let-timeSpan="aVariable"
-                    [ngTemplateOutletContext]="{ aVariable: +(sim.endTime) - +(sim.startTime) }"
-                    [ngTemplateOutlet]="selfie" #selfie>
-                    in {{timeSpan}} time
-                  </ng-template>
-                </ion-col>
-                <ion-col> on {{sim.cpus}} CPUs </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-label>
-                    <p> {{sim.startTime.toLocaleString()}}</p>
-                  </ion-label>
-                </ion-col>
-                <ion-col>
-                  <ion-label>
-                    <p> {{sim.location}}</p>
-                  </ion-label>
-                </ion-col>
-                <ion-col>
-                  <ion-label>
-                    <p>Budget: {{sim.usedBudget}}</p>
-                  </ion-label>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+            <simulation [simulation]="sim"></simulation>         
           </ion-item>
         </ion-list>
       </ion-col>

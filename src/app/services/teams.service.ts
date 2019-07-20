@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ITeam } from '../interfaces';
+import { ITeam } from '../data-interfaces';
 
 @Injectable({
   providedIn: 'root'

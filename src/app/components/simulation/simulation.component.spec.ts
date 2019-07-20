@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SimulationComponent } from './simulation.component';
-import { ISimulation } from '../interfaces';
+import { ISimulation } from '../../data-interfaces';
 
 describe('SimulationComponent', () => {
   let component: SimulationComponent;

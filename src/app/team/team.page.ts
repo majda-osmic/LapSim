@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TeamsService } from '../services/teams.service';
-import { ITeam, ISimulation, IAccountDetail, IAccountInfo } from '../interfaces';
+import { ITeam, ISimulation, IAccountDetail, IAccountInfo } from '../data-interfaces';
 import { SimulationsService } from '../services/simulations.service';
+import { IAccountDisplay } from '../display-interfaces';
 
 @Component({
   selector: 'app-team',
@@ -11,36 +12,47 @@ import { SimulationsService } from '../services/simulations.service';
 })
 export class TeamPage implements OnInit {
   team: ITeam;
-  showAccountDetails = false; // todo: based on screen size
   progress: number;
-  accountDetails: IAccountDetail[];
+  accounts: IAccountDisplay[];
   simulations: ISimulation[];
   budgetProgress: number;
-  accountCheckedMapping: {[accountId: number]: boolean };
 
   constructor(private route: ActivatedRoute,
               private teamService: TeamsService,
               private simulationService: SimulationsService) { }
 
   ngOnInit() {
-     const id = +this.route.snapshot.params.id;
-     this.team = this.teamService.getTeam(id);
-     this.progress = this.team.usedBudget / this.team.budget;
-     const accountIds = this.team.accounts.map(account => account.id);
-     this.accountDetails = this.simulationService.getAccountDetails(accountIds);
-     this.accountCheckedMapping = [];
-     this.team.accounts.forEach(account => this.accountCheckedMapping[account.id] = true);
-     // TODO: these should be saved into user settings
-     this.setVisibleSimulations();
-     // TODO: if error occures here, nothing is loaded, maybe display error page?
+    const id = +this.route.snapshot.params.id;
+    this.team = this.teamService.getTeam(id);
+    this.progress = this.team.usedBudget / this.team.budget;
+    const accountIds = this.team.accounts.map(account => account.id);
+    const accountDetails = this.simulationService.getAccountDetails(accountIds);
+    this.accounts = [];
+    accountDetails.forEach(accountDetail => this.accounts.push(this.createAccountDisplay(accountDetail)));
+
+    // TODO: these should be saved into user settings
+    this.setVisibleSimulations();
+    // TODO: if error occures here, nothing is loaded, maybe display error page?
   }
 
-  onAccountCheckChange(accountId: number) {
+  onAccountCheckChange() {
+    // TODO: optimize
     this.setVisibleSimulations();
   }
 
+  private createAccountDisplay(accountDetail: IAccountDetail): IAccountDisplay {
+    const display: IAccountDisplay = {
+      detail: accountDetail,
+      checked: true,
+      info: this.team.accounts.find(item => item.id === accountDetail.id),
+      color: 'red',
+    };
+    return display;
+  }
+
+
   private setVisibleSimulations() {
-    const visibleSims = this.accountDetails.filter(account => this.accountCheckedMapping[account.id] === true);
-    this.simulations = [].concat(...visibleSims.map(detail => detail.simulations));
+    const visibles = this.accounts.filter(account => account.checked === true);
+    this.simulations = [].concat(...visibles.map(account => account.detail.simulations));
   }
 }

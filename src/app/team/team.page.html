@@ -14,15 +14,11 @@
         <!-- todo: put this within a different scroll-->
         <!-- todo: add a button for viewing software package history (different page)-->
 
-        <ion-list *ngFor="let account of team.accounts">
-          <ion-item>
-            <ion-checkbox [(ngModel)]="accountCheckedMapping[account.id]"
-              (ionChange)="onAccountCheckChange(account.id)"></ion-checkbox>
-            <ion-label class="account-details">
-              <h3>{{account.name}}</h3>
-              <p>CPUs: {{account.cpus}}</p>
-            </ion-label>
-          </ion-item>
+
+
+        <ion-list *ngFor="let account of accounts">
+            <!--  -->
+          <account [account]="account" (show)="onAccountCheckChange()"></account>
         </ion-list>
       </ion-col>
 
@@ -31,7 +27,7 @@
           No account selected
         </ion-chip>
         <ion-list *ngFor="let sim of simulations">
-            <simulation [simulation]="sim"></simulation>         
+          <simulation [simulation]="sim"></simulation>
         </ion-list>
       </ion-col>
     </ion-row>

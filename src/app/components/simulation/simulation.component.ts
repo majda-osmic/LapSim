@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ISimulation } from '../interfaces';
+import { ISimulation } from '../../data-interfaces';
 
 @Component({
   selector: 'simulation',

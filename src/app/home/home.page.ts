@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ITeam } from '../interfaces';
+import { ITeam } from '../data-interfaces';
 import { TeamsService } from '../services/teams.service';
 import { NavController } from '@ionic/angular';
 

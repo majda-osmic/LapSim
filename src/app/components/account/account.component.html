@@ -1,0 +1,8 @@
+<ion-item>
+    <ion-checkbox [(ngModel)]="account.checked"
+      (ionChange)="onCheckChange()"></ion-checkbox>
+    <ion-label class="details">
+      <h3>{{account.info.name}}</h3>
+      <p>CPUs: {{account.info.cpus}}</p>
+    </ion-label>
+  </ion-item>

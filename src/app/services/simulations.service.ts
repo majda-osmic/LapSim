@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ISimulation, IAccountDetail, ISoftwarePackage } from '../interfaces';
+import { ISimulation, IAccountDetail, ISoftwarePackage } from '../data-interfaces';
 
 @Injectable({
   providedIn: 'root'

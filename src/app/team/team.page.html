@@ -13,12 +13,10 @@
         <!-- todo: collapse this one small screen, or show in a different way-->
         <!-- todo: put this within a different scroll-->
         <!-- todo: add a button for viewing software package history (different page)-->
-
-
-
         <ion-list *ngFor="let account of accounts">
-            <!--  -->
-          <account [account]="account" (show)="onAccountCheckChange()"></account>
+          <ion-item>
+            <account [account]="account" (show)="onAccountCheckChange()"></account>
+          </ion-item>
         </ion-list>
       </ion-col>
 
@@ -27,7 +25,9 @@
           No account selected
         </ion-chip>
         <ion-list *ngFor="let sim of simulations">
-          <simulation [simulation]="sim"></simulation>
+          <ion-item>
+            <simulation [simulation]="sim"></simulation>
+          </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>

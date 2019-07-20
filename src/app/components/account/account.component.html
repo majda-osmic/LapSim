@@ -1,8 +1,18 @@
 <ion-item>
-    <ion-checkbox [(ngModel)]="account.checked"
-      (ionChange)="onCheckChange()"></ion-checkbox>
-    <ion-label class="details">
-      <h3>{{account.info.name}}</h3>
-      <p>CPUs: {{account.info.cpus}}</p>
-    </ion-label>
-  </ion-item>
+  <!-- todo: add a button for viewing software package history (different page)-->
+  <ion-checkbox [(ngModel)]="account.checked" (ionChange)="onCheckChange()"></ion-checkbox>
+  <ion-label>
+    <ion-grid class="details">
+      <ion-col>
+        <ion-row>
+          <ion-label>{{account.info.name}}</ion-label>
+        </ion-row>
+        <ion-row>
+          <ion-label>
+            <p>CPUs: {{account.info.cpus}}</p>
+          </ion-label>
+        </ion-row>
+      </ion-col>
+    </ion-grid>
+  </ion-label>
+</ion-item>

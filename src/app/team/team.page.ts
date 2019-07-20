@@ -30,7 +30,6 @@ export class TeamPage implements OnInit {
     this.accounts = [];
     accountDetails.forEach(accountDetail => this.accounts.push(this.createAccountDisplay(accountDetail)));
 
-    // TODO: these should be saved into user settings
     this.setVisibleSimulations();
     // TODO: if error occures here, nothing is loaded, maybe display error page?
   }
@@ -43,8 +42,9 @@ export class TeamPage implements OnInit {
   private createAccountDisplay(accountDetail: IAccountDetail): IAccountDisplay {
     const display: IAccountDisplay = {
       detail: accountDetail,
-      checked: true,
       info: this.team.accounts.find(item => item.id === accountDetail.id),
+      // TODO: these should be saved into user settings
+      checked: true,
       color: 'red',
     };
     return display;

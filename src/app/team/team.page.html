@@ -24,11 +24,6 @@
             </ion-label>
           </ion-item>
         </ion-list>
-
-        <!-- <ion-button (click)="showAccountDetails=!showAccountDetails">
-          <ion-icon name="arrow-dropleft" [hidden]="showAccountDetails === false"></ion-icon>
-          <ion-icon name="arrow-dropright" [hidden]="showAccountDetails === true"></ion-icon>
-        </ion-button> -->
       </ion-col>
 
       <ion-col>
@@ -36,9 +31,7 @@
           No account selected
         </ion-chip>
         <ion-list *ngFor="let sim of simulations">
-          <ion-item>
             <simulation [simulation]="sim"></simulation>         
-          </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>

@@ -12,7 +12,7 @@ import { TeamsService } from './services/teams.service';
 })
 export class AppComponent {
   teams: ITeam[];
-
+  selectedTeam: ITeam;
 
   constructor(
     private teamsService: TeamsService,
@@ -35,6 +35,7 @@ export class AppComponent {
 
 
     viewTeam(team: ITeam) {
+      this.selectedTeam = team;
       this.nav.navigateForward(`/team/${team.id}`);
   }
 }

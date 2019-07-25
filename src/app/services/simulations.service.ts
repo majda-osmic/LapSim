@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ISimulation, IAccountDetail, ISoftwarePackage } from '../data-interfaces';
+import { ISimulation, IAccountDetail, ISoftwarePackage, ITeam } from '../data-interfaces';
+import { TeamsService } from './teams.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,28 @@ import { ISimulation, IAccountDetail, ISoftwarePackage } from '../data-interface
 export class SimulationsService {
 
   private accounts: IAccountDetail[];
-  constructor() { }
+  constructor(private teamService: TeamsService) { }
 
   getAccountDetails(accounts: number[]): IAccountDetail[] {
     return this.getAllAccounts().filter(account => accounts.includes(account.id));
+  }
+
+  
+  // private createAccountDisplay(accountDetail: IAccountDetail): IAccountDisplay {
+  //   const display: IAccountDisplay = {
+  //     detail: accountDetail,
+  //     info: this.team.accounts.find(item => item.id === accountDetail.id),
+  //     // TODO: these should be saved into user settings
+  //     checked: true,
+  //     color: 'red',
+  //   };
+  //   return display;
+  // }
+
+  getSimulationsForTeam(teamId: number): ISimulation[] {
+    const team = this.teamService.getTeam(teamId);
+    const accountIds = team.accounts.map(account => account.id);
+    return this.getSimulations(accountIds);
   }
 
   getSimulations(accounts: number[]): ISimulation[] {

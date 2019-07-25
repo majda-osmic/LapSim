@@ -1,0 +1,22 @@
+<ion-grid>
+  <ion-row>
+    <ion-col class="col-separator">
+      <ion-item lines="none">
+        <ion-title class="ion-padding">{{data.name}} </ion-title>
+        <ion-badge slot="end">
+          {{data.usedBudget.toLocaleString()}} of {{data.budget.toLocaleString()}}
+        </ion-badge>
+      </ion-item>
+      <ion-progress-bar [value]="progress"></ion-progress-bar>
+
+      <!-- todo: collapse this one small screen, or show in a different way-->
+      <!-- todo: put this within a different scroll-->
+      <!-- todo: add a button for viewing software package history (different page)-->
+      <ion-list *ngFor="let account of accounts">
+        <ion-item>
+          <account [account]="account" (show)="onAccountCheckChange()"></account>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

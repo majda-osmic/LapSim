@@ -1,0 +1,8 @@
+<ion-chip color="warning" [hidden]="simulations.length > 0">
+  No account selected
+</ion-chip>
+<ion-list *ngFor="let sim of simulations">
+  <ion-item>
+    <simulation [simulation]="sim"></simulation>
+  </ion-item>
+</ion-list>

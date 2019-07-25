@@ -1,39 +1,27 @@
 <ion-app>
   <ion-split-pane>
+    <ion-menu content-id="content" auto-hide="false" persistent="true">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Lap Sim</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
 
-      <ion-menu content-id="content" auto-hide="false" persistent="true" >
-          <ion-header>
-            <ion-toolbar>
-              <ion-title>Lap Sim</ion-title>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content>
-    
-            <ion-list>
-              <ion-list-header> Teams </ion-list-header>
-              
-              <ion-list *ngFor="let team of teams">
-                  <ion-item (click)="viewTeam(team)"> <!--todo: maybe use router link for this-->
-                    {{team.name}}
-                   <ion-icon name="arrow-dropright"></ion-icon>
-                  </ion-item>
-                </ion-list>
-
-              <!-- <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
-                <ion-item [routerLink]="p.url" routerLinkActive="active" routerDirection="root">
-                  <ion-icon slot="start" [name]="p.icon"></ion-icon>
-                  <ion-label>
-                    {{p.title}}
-                  </ion-label>
-                </ion-item>
-    
-              </ion-menu-toggle> -->
-            </ion-list>
-    
-    
-
-          </ion-content>
-        </ion-menu>
+        <ion-list *ngFor="let team of teams">
+          <ion-grid (click)="viewTeam(team)">
+            <ion-row>
+              {{team.name}}
+              <ion-icon name="arrow-dropright" [hidden]="team.id === selectedTeam.id"></ion-icon>
+              <ion-icon name="arrow-dropdown" [hidden]="team.id !== selectedTeam.id"></ion-icon>
+            </ion-row>
+            <ion-row [hidden]="team.id !== selectedTeam.id">
+              <team [data]="team"></team>
+            </ion-row>
+          </ion-grid>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
 
     <ion-router-outlet main id="content"></ion-router-outlet>
 

@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu content-id="content" auto-hide="false" persistent="true">
+    <ion-menu>
       <ion-header>
         <ion-toolbar>
           <ion-title>Lap Sim</ion-title>
@@ -9,21 +9,14 @@
       <ion-content>
 
         <ion-list *ngFor="let team of teams">
-          <ion-grid (click)="viewTeam(team)">
-            <ion-row>
-              {{team.name}}
-              <ion-icon name="arrow-dropright" [hidden]="team.id === selectedTeam.id"></ion-icon>
-              <ion-icon name="arrow-dropdown" [hidden]="team.id !== selectedTeam.id"></ion-icon>
-            </ion-row>
-            <ion-row [hidden]="team.id !== selectedTeam.id">
-              <team [data]="team"></team>
-            </ion-row>
-          </ion-grid>
+          <ion-item (click)="viewTeam(team)">
+            <team [data]="team" [showDetails]="team.id === selectedTeam.id"></team>
+          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>
 
-    <ion-router-outlet main id="content"></ion-router-outlet>
+    <ion-router-outlet main></ion-router-outlet>
 
   </ion-split-pane>
 

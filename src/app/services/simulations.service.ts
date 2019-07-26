@@ -14,7 +14,6 @@ export class SimulationsService {
     return this.getAllAccounts().filter(account => accounts.includes(account.id));
   }
 
-  
   // private createAccountDisplay(accountDetail: IAccountDetail): IAccountDisplay {
   //   const display: IAccountDisplay = {
   //     detail: accountDetail,

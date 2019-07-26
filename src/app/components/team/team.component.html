@@ -1,24 +1,20 @@
-<ion-grid>
-  <ion-row>
-    <ion-item>
-      <ion-icon name="arrow-dropright" [hidden]="showDetails"></ion-icon>
-      <ion-icon name="arrow-dropdown" [hidden]="!showDetails"></ion-icon>
-      <ion-title class="ion-padding">{{data.name}} </ion-title>
-    </ion-item>
-  </ion-row>
-  <ion-row>
+<div style="display:flex; flex-direction: row">
+  <ion-avatar>
+    <ion-icon name="arrow-dropright" [hidden]="showDetails"></ion-icon>
+    <ion-icon name="arrow-dropdown" [hidden]="!showDetails"></ion-icon>
+  </ion-avatar>
+  {{data.name}}
+</div>
+<!-- <ion-row>
     <ion-progress-bar [value]="progress"></ion-progress-bar>
-  </ion-row>
-  <ion-row [hidden]="!showDetails">
-    <ion-badge slot="end">
+  </ion-row> -->
+<div [hidden]="!showDetails" >
+  <!-- <ion-badge>
       {{data.usedBudget.toLocaleString()}} of {{data.budget.toLocaleString()}}
-    </ion-badge>
-    <!-- todo: collapse this one small screen, or show in a different way-->
-    <!-- todo: add a button for viewing software package history (different page)-->
-    <ion-list *ngFor="let account of accounts">
-      <ion-item>
-        <account [account]="account" (show)="onAccountCheckChange()"></account>
-      </ion-item>
-    </ion-list>
-  </ion-row>
-</ion-grid>
+    </ion-badge> -->
+  <!-- todo: collapse this one small screen, or show in a different way-->
+  <!-- todo: add a button for viewing software package history (different page)-->
+  <ion-list *ngFor="let account of accounts">
+    <account [account]="account" (show)="onAccountCheckChange()"></account>
+  </ion-list>
+</div>

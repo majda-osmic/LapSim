@@ -3,17 +3,16 @@
     <ion-item>
       <ion-icon name="arrow-dropright" [hidden]="showDetails"></ion-icon>
       <ion-icon name="arrow-dropdown" [hidden]="!showDetails"></ion-icon>
-      <ion-label class="ion-padding">{{data.name}} </ion-label>
-      <ion-badge>
-          {{data.usedBudget.toLocaleString()}} of {{data.budget.toLocaleString()}}
-        </ion-badge>
+      <ion-title class="ion-padding">{{data.name}} </ion-title>
     </ion-item>
   </ion-row>
   <ion-row>
     <ion-progress-bar [value]="progress"></ion-progress-bar>
   </ion-row>
   <ion-row [hidden]="!showDetails">
-
+    <ion-badge slot="end">
+      {{data.usedBudget.toLocaleString()}} of {{data.budget.toLocaleString()}}
+    </ion-badge>
     <!-- todo: collapse this one small screen, or show in a different way-->
     <!-- todo: add a button for viewing software package history (different page)-->
     <ion-list *ngFor="let account of accounts">

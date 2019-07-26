@@ -27,12 +27,9 @@ export class TeamComponent implements OnInit {
     const accountDetails = this.simulationService.getAccountDetails(accountIds);
     this.accounts = [];
     accountDetails.forEach(accountDetail => this.accounts.push(this.createAccountDisplay(accountDetail)));
-
-
-    // ... load stuff
   }
 
-  @Input() showDetails: boolean = true;
+  @Input() showDetails: boolean;
 
   constructor(private teamService: TeamsService,
               private simulationService: SimulationsService) { }
@@ -50,7 +47,6 @@ export class TeamComponent implements OnInit {
     return display;
   }
 
-  
   onAccountCheckChange() {
     // TODO
   }

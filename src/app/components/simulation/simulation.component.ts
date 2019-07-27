@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ISimulation } from '../../data-interfaces';
-import { ActivatedRoute } from '@angular/router';
-import { TeamsService } from 'src/app/services/teams.service';
-import { SimulationsService } from 'src/app/services/simulations.service';
 
 @Component({
   selector: 'simulation',

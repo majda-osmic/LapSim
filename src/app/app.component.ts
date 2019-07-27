@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform, MenuController, NavController } from '@ionic/angular';
+import { Platform,  NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ITeam } from './data-interfaces';
@@ -12,7 +12,6 @@ import { TeamsService } from './services/teams.service';
 })
 export class AppComponent {
   teams: ITeam[];
-  selectedTeam: ITeam;
 
   constructor(
     private teamsService: TeamsService,
@@ -29,13 +28,6 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.teams = this.teamsService.getTeams();
-      this.viewTeam(this.teams[0]);
     });
     }
-
-
-    viewTeam(team: ITeam) {
-      this.selectedTeam = team;
-      this.nav.navigateForward(`/team/${team.id}`);
-  }
 }

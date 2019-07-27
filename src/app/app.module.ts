@@ -13,11 +13,13 @@ import { AccountComponent } from './components/account/account.component';
 import { TeamComponent } from './components/team/team.component';
 import { FormsModule } from '@angular/forms';
 import { SimulationsComponent } from './components/simulations/simulations.component';
+import { TeamsComponent } from './components/teams/teams.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TeamComponent,
+    TeamsComponent,
     SimulationComponent,
     SimulationsComponent,
     AccountComponent,

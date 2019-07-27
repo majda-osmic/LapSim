@@ -12,7 +12,6 @@ import { SimulationsService } from 'src/app/services/simulations.service';
 export class TeamComponent implements OnInit {
 
   accounts: IAccountDisplay[];
-  progress: number;
 
   team: ITeam;
   get data(): ITeam {
@@ -21,8 +20,6 @@ export class TeamComponent implements OnInit {
 
   @Input() set data(val: ITeam) {
     this.team = val;
-
-    this.progress = this.team.usedBudget / this.team.budget;
     this.accounts  = this.teamService.getAccountDisplay(this.team.id);
     }
 

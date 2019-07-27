@@ -5,6 +5,7 @@
 // file can hold Sass mixins, functions, and placeholder classes to be imported 
 // and used throughout the application.
 
-div.inline{
-    float: left;
+.inline{
+    display:flex; 
+    flex-direction: row;
 }

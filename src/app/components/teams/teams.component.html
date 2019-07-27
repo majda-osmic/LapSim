@@ -1,0 +1,5 @@
+<ion-list *ngFor="let team of teams">
+  <div (click)="viewTeam(team)">
+    <team [data]="team" [showDetails]="team.id === selectedTeam?.id"></team>
+  </div>
+</ion-list>

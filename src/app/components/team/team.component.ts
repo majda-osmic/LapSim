@@ -23,11 +23,8 @@ export class TeamComponent implements OnInit {
     this.team = val;
 
     this.progress = this.team.usedBudget / this.team.budget;
-    const accountIds = this.team.accounts.map(account => account.id);
-    const accountDetails = this.simulationService.getAccountDetails(accountIds);
-    this.accounts = [];
-    accountDetails.forEach(accountDetail => this.accounts.push(this.createAccountDisplay(accountDetail)));
-  }
+    this.accounts  = this.teamService.getAccountDisplay(this.team.id);
+    }
 
   @Input() showDetails: boolean;
 
@@ -36,20 +33,7 @@ export class TeamComponent implements OnInit {
 
   ngOnInit() { }
 
-  private createAccountDisplay(accountDetail: IAccountDetail): IAccountDisplay {
-    const display: IAccountDisplay = {
-      detail: accountDetail,
-      info: this.team.accounts.find(item => item.id === accountDetail.id),
-      // TODO: these should be saved into user settings
-      checked: true,
-      color: 'red',
-    };
-    return display;
-  }
-
   onAccountCheckChange() {
-    // TODO
+    this.simulationService.notifyAccountVisibilityChange(this.team.id);
   }
-
-
 }

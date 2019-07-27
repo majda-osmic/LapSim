@@ -1,48 +1,36 @@
-import { Injectable } from '@angular/core';
-import { ISimulation, IAccountDetail, ISoftwarePackage, ITeam } from '../data-interfaces';
+import { Injectable, EventEmitter, Output } from '@angular/core';
+import { ISimulation } from '../data-interfaces';
 import { TeamsService } from './teams.service';
-import { MockService } from './mock.service';
-
 @Injectable({
   providedIn: 'root'
 })
 export class SimulationsService {
+  private teamVisibleSimulationMapping: Map<number, ISimulation[]> = new Map<number, ISimulation[]>();
 
-  private accounts: IAccountDetail[];
-  constructor(private teamService: TeamsService,
-              private mockService: MockService) { }
+  @Output() visibleItemsChanged: EventEmitter<number> = new EventEmitter();
 
-  getAccountDetails(accounts: number[]): IAccountDetail[] {
-    return this.getAllAccounts().filter(account => accounts.includes(account.id));
-  }
+  constructor(private teamService: TeamsService) { }
 
-  // private createAccountDisplay(accountDetail: IAccountDetail): IAccountDisplay {
-  //   const display: IAccountDisplay = {
-  //     detail: accountDetail,
-  //     info: this.team.accounts.find(item => item.id === accountDetail.id),
-  //     // TODO: these should be saved into user settings
-  //     checked: true,
-  //     color: 'red',
-  //   };
-  //   return display;
-  // }
-
-  getSimulationsForTeam(teamId: number): ISimulation[] {
-    const team = this.teamService.getTeam(teamId);
-    const accountIds = team.accounts.map(account => account.id);
-    return this.getSimulations(accountIds);
-  }
-
-  getSimulations(accounts: number[]): ISimulation[] {
-    const matchingSimulations = this.getAccountDetails(accounts).map(account => account.simulations);
-    return [].concat(...matchingSimulations); // flatten
-  }
-
-  private getAllAccounts(): IAccountDetail[] {
-    if (this.accounts === undefined || this.accounts.length === 0) {
-      this.accounts = this.mockService.createMockAccounts(); // temporary
+  getVisibleSimulationsForTeam(teamId: number): ISimulation[] {
+    // if there is no data, get it
+    if (this.teamVisibleSimulationMapping[teamId] === undefined) {
+      this.setVisibileSimulationsForTeam(teamId);
     }
-    return this.accounts;
+    return this.teamVisibleSimulationMapping[teamId];
+  }
+
+  private setVisibileSimulationsForTeam(teamId: number) {
+    const accountDisplay = this.teamService.getAccountDisplay(teamId).filter(item => item.checked === true);
+    this.teamVisibleSimulationMapping[teamId] = [].concat(...accountDisplay.map(data => data.detail.simulations));
+  }
+
+  notifyAccountVisibilityChange(teamId: number) {
+    // if the data has already been retrieved, update it
+    if (this.teamVisibleSimulationMapping[teamId] !== undefined) {
+      this.setVisibileSimulationsForTeam(teamId);
+    }
+
+    this.visibleItemsChanged.emit(teamId);
   }
 
 }

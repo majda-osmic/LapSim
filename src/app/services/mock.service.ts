@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ISoftwarePackage, ISimulation } from '../data-interfaces';
+import { ISoftwarePackage, ISimulation, ITeam, IAccountDetail } from '../data-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ export class MockService {
 
   constructor() { }
 
-   createTeams() {
+   createTeams(): ITeam[] {
     return [{
         id: 1,
         name: 'Super Fast',
@@ -51,7 +51,7 @@ export class MockService {
     ];
   }
 
-  createMockAccounts() {
+  createMockAccounts(): IAccountDetail[] {
     const packages = this.createMockSoftwarePackages();
     const mockSims = this.createMockSimulations();
 

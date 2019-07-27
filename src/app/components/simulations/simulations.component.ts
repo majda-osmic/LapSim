@@ -9,15 +9,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./simulations.component.scss'],
 })
 export class SimulationsComponent implements OnInit {
-
+  teamID: number;
   simulations: ISimulation[] = [];
 
   constructor(private simService: SimulationsService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const id = +this.route.snapshot.params.id;
-    this.simulations =  this.simService.getSimulationsForTeam(id);
+    this.teamID = +this.route.snapshot.params.id;
+    this.simulations =  this.simService.getVisibleSimulationsForTeam(this.teamID);
+    this.simService.visibleItemsChanged.subscribe(teamId => this.updateVisibleSimulations(teamId));
+    this.updateVisibleSimulations(this.teamID);
   }
 
+  private updateVisibleSimulations(id: number) {
+    if (this.teamID === id) {
+      this.simulations =  this.simService.getVisibleSimulationsForTeam(id);
+    }
+  }
 }

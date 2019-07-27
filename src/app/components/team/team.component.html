@@ -5,14 +5,8 @@
   </ion-avatar>
   {{data.name}}
 </div>
-<!-- <ion-row>
-    <ion-progress-bar [value]="progress"></ion-progress-bar>
-  </ion-row> -->
-<div [hidden]="!showDetails" >
-  <!-- <ion-badge>
-      {{data.usedBudget.toLocaleString()}} of {{data.budget.toLocaleString()}}
-    </ion-badge> -->
-  <!-- todo: collapse this one small screen, or show in a different way-->
+<div [hidden]="!showDetails">
+ 
   <!-- todo: add a button for viewing software package history (different page)-->
   <ion-list *ngFor="let account of accounts">
     <account [account]="account" (show)="onAccountCheckChange()"></account>

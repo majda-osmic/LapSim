@@ -1,8 +1,17 @@
-<ion-chip color="warning" [hidden]="simulations.length > 0">
-  No account selected
-</ion-chip>
-<ion-list *ngFor="let sim of simulations">
-  <ion-item>
-    <simulation [simulation]="sim"></simulation>
-  </ion-item>
-</ion-list>
+  <ion-toolbar>
+    <ion-title>{{team.name}}</ion-title>
+     <ion-badge slot="end" class="ion-margin">
+      {{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}
+    </ion-badge>
+      <ion-progress-bar [value]="progress"></ion-progress-bar>
+  </ion-toolbar>
+  <ion-content>
+  <ion-chip color="warning" [hidden]="simulations?.length > 0">
+    No account selected
+  </ion-chip>
+  <ion-list *ngFor="let sim of simulations">
+    <ion-item>
+      <simulation [simulation]="sim"></simulation>
+    </ion-item>
+  </ion-list>
+</ion-content>

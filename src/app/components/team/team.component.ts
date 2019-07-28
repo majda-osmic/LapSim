@@ -18,8 +18,10 @@ export class TeamComponent implements OnInit {
   }
 
   @Input() set data(val: ITeam) {
-    this.team = val;
-    this.accounts = this.teamService.getAccountDisplay(this.team.id);
+    if (val  !== undefined) {
+      this.team = val;
+      this.teamService.getAccountDisplay(this.team.id).then(value => this.accounts = value);
+    }
   }
 
   @Input() showDetails: boolean;

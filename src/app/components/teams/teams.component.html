@@ -14,7 +14,7 @@
           {{team.name}}
         </ion-label>
       </div>
-      <team [preview]="team!==selectedTeam" [data]="team" *ngIf="expandedMap[team.id]===true">
+      <team  [data]="team" *ngIf="expandedMap[team.id]===true">
       </team>
     </div>
   </ion-item>

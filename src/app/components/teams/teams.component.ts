@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ITeam } from 'src/app/data-interfaces';
 import { NavController, Events } from '@ionic/angular';
 import { TeamsService } from 'src/app/services/teams.service';

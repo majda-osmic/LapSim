@@ -25,18 +25,12 @@ export class SimulationsComponent implements OnInit {
   ngOnInit() {
     this.teamID = +this.route.snapshot.params.id;
     this.simService.visibleItemsChanged.subscribe(teamId => this.updateVisibleSimulations(teamId));
-    this.listenForLoginEvents();
-    this.getTeamData();
-  }
-
-  listenForLoginEvents() {
-    this.events.subscribe('user:login', () => {
-      this.getTeamData();
-    });
 
     this.events.subscribe('user:logout', () => {
       this.clearData();
     });
+
+    this.getTeamData();
   }
 
   private updateVisibleSimulations(id: number) {
@@ -47,8 +41,8 @@ export class SimulationsComponent implements OnInit {
 
   private getTeamData() {
     this.teamService.getTeam(this.teamID).then(team => {
-      this.team = team;
       if (team !== undefined) {
+        this.team = team;
         this.progress = this.team.usedBudget / this.team.budget;
       }
     });

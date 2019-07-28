@@ -12,8 +12,7 @@ export class TeamsService {
   private accounts: IAccountDetail[];
   private teamToAccountDisplayMapping: Map<number, IAccountDetail[]> = new Map<number, IAccountDetail[]>();
 
-  constructor(private mockService: MockService,
-              private userData: UserData) { }
+  constructor(private mockService: MockService, private userData: UserData) { }
 
   getTeams(): Promise<ITeam[]> {
     return this.userData.isLoggedIn().then(loggedIn => {
@@ -28,19 +27,26 @@ export class TeamsService {
   }
 
 
-  getTeam(id: number): Promise<ITeam> {
-    return this.getTeams().then(teams => teams.find(item => item.id === id));
+  async getTeam(id: number): Promise<ITeam> {
+    if (this.teams === undefined || this.teams === []) {
+      await this.getTeams();
+    }
+    return this.teams.find(item => item.id === id);
   }
 
-  getAccountDisplay(teamId: number): Promise<IAccountDisplay[]> {
+
+
+  async getAccountDisplay(teamId: number): Promise<IAccountDisplay[]> {
     if (this.teamToAccountDisplayMapping[teamId] === undefined) {
-      this.getTeam(teamId).then(team => {
-        const accountIds = team.accounts.map(account => account.id);
-        const accountDetails = this.getAllAccounts().filter(account => accountIds.includes(account.id));
-        const accountsDisplay = [];
-        accountDetails.forEach(accountDetail => accountsDisplay.push(this.createAccountDisplay(team, accountDetail)));
-        this.teamToAccountDisplayMapping[teamId] = accountsDisplay;
-      });
+      const team = await this.getTeam(teamId);
+      if (team === undefined) {
+        return [];
+      }
+      const accountIds = team.accounts.map(account => account.id);
+      const accountDetails = this.getAllAccounts().filter(account => accountIds.includes(account.id));
+      const accountsDisplay = [];
+      accountDetails.forEach(accountDetail => accountsDisplay.push(this.createAccountDisplay(team, accountDetail)));
+      this.teamToAccountDisplayMapping[teamId] = accountsDisplay;
     }
 
     return this.teamToAccountDisplayMapping[teamId];

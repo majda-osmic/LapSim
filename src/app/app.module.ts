@@ -14,6 +14,9 @@ import { TeamComponent } from './components/team/team.component';
 import { FormsModule } from '@angular/forms';
 import { SimulationsComponent } from './components/simulations/simulations.component';
 import { TeamsComponent } from './components/teams/teams.component';
+import { UserData } from './providers/user-data';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [
@@ -26,10 +29,17 @@ import { TeamsComponent } from './components/teams/teams.component';
     ],
     exports: [  ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    FormsModule,
+    IonicStorageModule.forRoot()
+  ],
   providers: [
     StatusBar,
     SplashScreen,
+    UserData,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

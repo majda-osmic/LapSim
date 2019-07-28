@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ITeam } from 'src/app/data-interfaces';
-import { NavController } from '@ionic/angular';
+import { NavController, Events } from '@ionic/angular';
+import { TeamsService } from 'src/app/services/teams.service';
 @Component({
   selector: 'teams',
   templateUrl: './teams.component.html',
@@ -11,7 +12,7 @@ export class TeamsComponent implements OnInit {
   private expandedMap: Map<number, boolean> = new Map<number, boolean>();
   private teams: ITeam[];
 
-  @Input() set loadedTeams(val: ITeam[]) {
+  set loadedTeams(val: ITeam[]) {
     if (val !== undefined) {
       this.teams = val;
       this.teams.forEach(element => {
@@ -23,9 +24,24 @@ export class TeamsComponent implements OnInit {
 
   selectedTeam: ITeam;
 
-  constructor(private nav: NavController) { }
+  constructor(private nav: NavController,
+              private teamsService: TeamsService,
+              private events: Events,
+    ) { }
 
   ngOnInit() {
+    this.loadTeams();
+    this.listenForLoginEvents();
+  }
+
+  listenForLoginEvents() {
+    this.events.subscribe('user:login', () => {
+      this.loadTeams();
+    });
+
+    this.events.subscribe('user:logout', () => {
+      this.loadedTeams = [];
+    });
   }
 
   showDetails(team: ITeam) {
@@ -45,5 +61,9 @@ export class TeamsComponent implements OnInit {
       this.selectedTeam = team;
       this.nav.navigateForward(`/team/${team.id}`);
     }
+  }
+
+  private loadTeams() {
+    this.teamsService.getTeams().then(value => this.loadedTeams = value);
   }
 }

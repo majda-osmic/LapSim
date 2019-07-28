@@ -1,4 +1,4 @@
-  <ion-toolbar>
+  <ion-toolbar *ngIf="team !== undefined">
     <ion-title>{{team.name}}</ion-title>
      <ion-badge slot="end" class="ion-margin">
       {{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}

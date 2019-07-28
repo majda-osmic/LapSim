@@ -10,7 +10,7 @@ import { UserData } from '../providers/user-data';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-   login: UserOptions = { username: '', password: '' };
+   login: UserOptions = { username: '', password: '', isAdmin: false };
   submitted = false;
 
   constructor(
@@ -22,12 +22,8 @@ export class LoginPage {
     this.submitted = true;
 
     if (form.valid) {
-      // this.userData.login(this.login.username);
-      // this.router.navigateByUrl('/app/tabs/schedule');
+       this.userData.login(this.login.username);
     }
   }
 
-  onSignup() {
-    // this.router.navigateByUrl('/signup');
-  }
 }

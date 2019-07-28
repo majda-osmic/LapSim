@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ITeam, IAccountDetail } from '../data-interfaces';
 import { MockService } from './mock.service';
 import { IAccountDisplay } from '../display-interfaces';
+import { UserData } from '../providers/user-data';
 
 @Injectable({
   providedIn: 'root'
@@ -11,27 +12,35 @@ export class TeamsService {
   private accounts: IAccountDetail[];
   private teamToAccountDisplayMapping: Map<number, IAccountDetail[]> = new Map<number, IAccountDetail[]>();
 
-  constructor(private mockService: MockService) { }
+  constructor(private mockService: MockService,
+              private userData: UserData) { }
 
-  getTeams(): ITeam[] {
-    if (this.teams === undefined || this.teams.length === 0) {
-      this.teams = this.mockService.createTeams(); // TODO: replace with data from server, mock for now
-    }
-    return this.teams;
+  getTeams(): Promise<ITeam[]> {
+    return this.userData.isLoggedIn().then(loggedIn => {
+      if (!loggedIn) {
+        return [];
+      }
+      if (this.teams === undefined || this.teams.length === 0) {
+        this.teams = this.mockService.createTeams(); // TODO: replace with data from server, mock for now
+      }
+      return this.teams;
+    });
   }
 
-  getTeam(id: number): ITeam {
-    return this.getTeams().find(item => item.id === id);
+
+  getTeam(id: number): Promise<ITeam> {
+    return this.getTeams().then(teams => teams.find(item => item.id === id));
   }
 
-  getAccountDisplay(teamId: number): IAccountDisplay[] {
+  getAccountDisplay(teamId: number): Promise<IAccountDisplay[]> {
     if (this.teamToAccountDisplayMapping[teamId] === undefined) {
-      const team = this.getTeam(teamId);
-      const accountIds = team.accounts.map(account => account.id);
-      const accountDetails = this.getAllAccounts().filter(account => accountIds.includes(account.id));
-      const accountsDisplay = [];
-      accountDetails.forEach(accountDetail => accountsDisplay.push(this.createAccountDisplay(team, accountDetail)));
-      this.teamToAccountDisplayMapping[teamId] = accountsDisplay;
+      this.getTeam(teamId).then(team => {
+        const accountIds = team.accounts.map(account => account.id);
+        const accountDetails = this.getAllAccounts().filter(account => accountIds.includes(account.id));
+        const accountsDisplay = [];
+        accountDetails.forEach(accountDetail => accountsDisplay.push(this.createAccountDisplay(team, accountDetail)));
+        this.teamToAccountDisplayMapping[teamId] = accountsDisplay;
+      });
     }
 
     return this.teamToAccountDisplayMapping[teamId];

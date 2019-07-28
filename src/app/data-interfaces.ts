@@ -44,4 +44,5 @@ export interface ISoftware {
 export interface UserOptions {
     username: string;
     password: string;
+    isAdmin: boolean;
 }

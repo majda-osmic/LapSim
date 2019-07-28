@@ -1,5 +1,7 @@
 {
   "name": "LapSim",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

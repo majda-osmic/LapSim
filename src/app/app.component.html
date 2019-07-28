@@ -7,7 +7,7 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-item-group>
+        <ion-item-group *ngIf="loggedIn">
           <ion-item-divider>
             <ion-label>Teams</ion-label>
           </ion-item-divider>
@@ -15,13 +15,19 @@
         </ion-item-group>
 
         <ion-item-group>
-
           <ion-item-divider>
             <ion-label>Account</ion-label>
           </ion-item-divider>
-          <ion-item>
-            <ion-label>Login</ion-label>
-          </ion-item>
+          <ion-menu-toggle autoHide="false" *ngIf="!loggedIn">
+            <ion-item routerLink="/login" routerDirection="root">
+              <ion-icon slot="start" name="log-in"></ion-icon>
+              <ion-label>
+                Login
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+
         </ion-item-group>
 
       </ion-content>

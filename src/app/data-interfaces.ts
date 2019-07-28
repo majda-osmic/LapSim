@@ -40,3 +40,8 @@ export interface ISoftware {
     name: string;
     version: string;
 }
+
+export interface UserOptions {
+    username: string;
+    password: string;
+}

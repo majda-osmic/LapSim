@@ -12,6 +12,7 @@ import { TeamsService } from './services/teams.service';
 })
 export class AppComponent {
   teams: ITeam[];
+  loggedIn: boolean;
 
   constructor(
     private teamsService: TeamsService,

@@ -30,22 +30,25 @@ export class SimulationsComponent implements OnInit {
       this.clearData();
     });
 
+    this.events.subscribe('user:login', () => {
+      this.getTeamData();
+    });
+
     this.getTeamData();
   }
 
-  private updateVisibleSimulations(id: number) {
+  private async updateVisibleSimulations(id: number) {
     if (this.team.id === id) {
-      this.simService.getVisibleSimulationsForTeam(id).then(result => this.simulations = result);
+      this.simulations = await this.simService.getVisibleSimulationsForTeam(id);
     }
   }
 
-  private getTeamData() {
-    this.teamService.getTeam(this.teamID).then(team => {
-      if (team !== undefined) {
-        this.team = team;
-        this.progress = this.team.usedBudget / this.team.budget;
-      }
-    });
+  private async getTeamData() {
+    this.team = await this.teamService.getTeam(this.teamID);
+    if (this.team !== undefined) {
+      this.progress = this.team.usedBudget / this.team.budget;
+      this.updateVisibleSimulations(this.team.id);
+    }
   }
 
   private clearData() {

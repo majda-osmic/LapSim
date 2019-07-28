@@ -14,16 +14,15 @@ export class TeamsService {
 
   constructor(private mockService: MockService, private userData: UserData) { }
 
-  getTeams(): Promise<ITeam[]> {
-    return this.userData.isLoggedIn().then(loggedIn => {
-      if (!loggedIn) {
-        return [];
-      }
-      if (this.teams === undefined || this.teams.length === 0) {
-        this.teams = this.mockService.createTeams(); // TODO: replace with data from server, mock for now
-      }
-      return this.teams;
-    });
+  async getTeams(): Promise<ITeam[]> {
+    const loggedIn = this.userData.isLoggedIn();
+    if (!loggedIn) {
+      return [];
+    }
+    if (this.teams === undefined || this.teams.length === 0) {
+      this.teams = this.mockService.createTeams(); // TODO: replace with data from server, mock for now
+    }
+    return this.teams;
   }
 
 
@@ -69,6 +68,4 @@ export class TeamsService {
     };
     return display;
   }
-
-
 }

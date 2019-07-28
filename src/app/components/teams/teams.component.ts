@@ -29,12 +29,7 @@ export class TeamsComponent implements OnInit {
               private events: Events,
     ) { }
 
-  ngOnInit() {
-    this.loadTeams();
-    this.listenForLoginEvents();
-  }
-
-  listenForLoginEvents() {
+  async ngOnInit() {
     this.events.subscribe('user:login', () => {
       this.loadTeams();
     });
@@ -42,6 +37,7 @@ export class TeamsComponent implements OnInit {
     this.events.subscribe('user:logout', () => {
       this.loadedTeams = [];
     });
+    await this.loadTeams();
   }
 
   showDetails(team: ITeam) {
@@ -63,7 +59,7 @@ export class TeamsComponent implements OnInit {
     }
   }
 
-  private loadTeams() {
-    this.teamsService.getTeams().then(value => this.loadedTeams = value);
+  private async loadTeams() {
+    this.loadedTeams = await this.teamsService.getTeams();
   }
 }

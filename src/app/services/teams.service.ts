@@ -3,6 +3,7 @@ import { ITeam, IAccountDetail } from '../data-interfaces';
 import { MockService } from './mock.service';
 import { IAccountDisplay } from '../display-interfaces';
 import { UserData } from '../providers/user-data';
+import { Events } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,16 @@ export class TeamsService {
   private accounts: IAccountDetail[];
   private teamToAccountDisplayMapping: Map<number, IAccountDetail[]> = new Map<number, IAccountDetail[]>();
 
-  constructor(private mockService: MockService, private userData: UserData) { }
+  constructor(private mockService: MockService, private userData: UserData, private events: Events) {
+    this.events.subscribe('user:logout', () => {
+      this.clear();
+    });
+  }
 
   async getTeams(): Promise<ITeam[]> {
     const loggedIn = this.userData.isLoggedIn();
     if (!loggedIn) {
+      this.clear();
       return [];
     }
     if (this.teams === undefined || this.teams.length === 0) {
@@ -25,7 +31,6 @@ export class TeamsService {
     return this.teams;
   }
 
-
   async getTeam(id: number): Promise<ITeam> {
     if (this.teams === undefined || this.teams === []) {
       await this.getTeams();
@@ -33,12 +38,11 @@ export class TeamsService {
     return this.teams.find(item => item.id === id);
   }
 
-
-
   async getAccountDisplay(teamId: number): Promise<IAccountDisplay[]> {
     if (this.teamToAccountDisplayMapping[teamId] === undefined) {
       const team = await this.getTeam(teamId);
       if (team === undefined) {
+        this.clear();
         return [];
       }
       const accountIds = team.accounts.map(account => account.id);
@@ -68,4 +72,11 @@ export class TeamsService {
     };
     return display;
   }
+
+  private clear() {
+    this.teams = [];
+    this.accounts = [];
+    this.teamToAccountDisplayMapping.clear();
+  }
+
 }

@@ -1,12 +1,4 @@
-<div style="display:flex; flex-direction: row">
-  <ion-avatar>
-    <ion-icon name="arrow-dropright" [hidden]="showDetails"></ion-icon>
-    <ion-icon name="arrow-dropdown" [hidden]="!showDetails"></ion-icon>
-  </ion-avatar>
-  {{data.name}}
-</div>
-<div [hidden]="!showDetails">
- 
+<div>
   <!-- todo: add a button for viewing software package history (different page)-->
   <ion-list *ngFor="let account of accounts">
     <account [account]="account" (show)="onAccountCheckChange()"></account>

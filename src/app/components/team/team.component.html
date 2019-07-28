@@ -1,6 +1,4 @@
-<div>
-  <!-- todo: add a button for viewing software package history (different page)-->
-  <ion-list *ngFor="let account of accounts">
-    <account [account]="account" (show)="onAccountCheckChange()"></account>
-  </ion-list>
-</div>
+<!-- todo: add a button for viewing software package history (different page)-->
+<ion-list *ngFor="let account of accounts">
+  <account [preview]="preview" [account]="account" (show)="onAccountCheckChange()"></account>
+</ion-list>

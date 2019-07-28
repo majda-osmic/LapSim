@@ -12,7 +12,6 @@ import { SimulationsService } from 'src/app/services/simulations.service';
 export class TeamComponent implements OnInit {
 
   accounts: IAccountDisplay[];
-
   team: ITeam;
   get data(): ITeam {
     return this.team;
@@ -20,10 +19,11 @@ export class TeamComponent implements OnInit {
 
   @Input() set data(val: ITeam) {
     this.team = val;
-    this.accounts  = this.teamService.getAccountDisplay(this.team.id);
-    }
+    this.accounts = this.teamService.getAccountDisplay(this.team.id);
+  }
 
   @Input() showDetails: boolean;
+  @Input() preview: boolean;
 
   constructor(private teamService: TeamsService,
               private simulationService: SimulationsService) { }

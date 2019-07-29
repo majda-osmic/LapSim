@@ -26,7 +26,8 @@ export class TeamsService {
       return [];
     }
     if (this.teams === undefined || this.teams.length === 0) {
-      this.teams = this.mockService.createTeams(); // TODO: replace with data from server, mock for now
+      const userName = await this.userData.getUsername();
+      this.teams = this.mockService.getTeams(userName); // TODO: replace with data from server, mock for now
     }
     return this.teams;
   }

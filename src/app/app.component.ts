@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-     // this.statusBar.styleDefault();
+      // this.statusBar.styleDefault();
       // this.splashScreen.hide();
     });
   }
@@ -36,37 +36,35 @@ export class AppComponent implements OnInit {
     this.listenForLoginEvents();
   }
 
-  checkLoginStatus() {
-    return this.userData.isLoggedIn().then(loggedIn => {
-      return this.updateLoggedInStatus(loggedIn);
-    });
+  async checkLoginStatus() {
+    const loggedIn = await this.userData.isLoggedIn();
+    await this.updateLoggedInStatus(loggedIn);
   }
 
-  updateLoggedInStatus(loggedIn: boolean) {
-    setTimeout(() => {
+  async updateLoggedInStatus(loggedIn: boolean) {
+    setTimeout(async () => {
       this.loggedIn = loggedIn;
       if (!this.loggedIn) {
         return this.router.navigateByUrl('/login');
       } else {
-        this.userData.isLoggedInAsAdmin().then(value => this.isAdmin = value);
+        this.isAdmin = await this.userData.isLoggedInAsAdmin();
       }
     }, 300);
   }
 
-  listenForLoginEvents() {
-    this.events.subscribe('user:login', () => {
-      this.updateLoggedInStatus(true);
+  async listenForLoginEvents() {
+    this.events.subscribe('user:login', async () => {
+      await this.updateLoggedInStatus(true);
     });
 
-    this.events.subscribe('user:logout', () => {
-      this.updateLoggedInStatus(false);
+    this.events.subscribe('user:logout', async () => {
+     await this.updateLoggedInStatus(false);
     });
   }
 
-  logout() {
-    this.userData.logout().then(() => {
-      return this.router.navigateByUrl('/home');
-    });
+  async logout() {
+    await this.userData.logout();
+    this.router.navigateByUrl('/login');
   }
 
 }

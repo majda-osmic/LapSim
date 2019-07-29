@@ -14,8 +14,8 @@
           <teams></teams>
         </ion-item-group>
 
-        <ion-item-group>
-          <ion-item-divider *ngIf="loggedIn && isAdmin">
+        <ion-item-group *ngIf="loggedIn && isAdmin">
+          <ion-item-divider >
             <ion-label>Project Leaders</ion-label>
           </ion-item-divider>
           <project-leads></project-leads>

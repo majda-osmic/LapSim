@@ -8,23 +8,32 @@ export class MockService {
 
   constructor() { }
 
+  getTeams(projectLead: string): ITeam[] {
+    const leads = this.createProjectLeads();
+    return leads.find(item => item.userName === projectLead).teams;
+  }
+
   createProjectLeads(): IProjectLead[] {
     const mockTeams = this.createTeams();
     return [{
       userName: 'max',
-      teams: mockTeams
+      teams: mockTeams.slice(0)
     },
     {
       userName: 'mike',
-      teams: mockTeams
+      teams: mockTeams.slice(1)
     },
     {
       userName: 'danny',
       teams: mockTeams
+    },
+    {
+      userName: 'majda',
+      teams: mockTeams
     }];
   }
 
-  createTeams(): ITeam[] {
+  private createTeams(): ITeam[] {
     return [{
       id: 1,
       name: 'Super Fast',

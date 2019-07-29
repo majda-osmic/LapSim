@@ -27,11 +27,11 @@ export class TeamsComponent implements OnInit {
   constructor(private nav: NavController,
               private teamsService: TeamsService,
               private events: Events,
-    ) { }
+  ) { }
 
   async ngOnInit() {
-    this.events.subscribe('user:login', () => {
-      this.loadTeams();
+    this.events.subscribe('user:login', async () => {
+      await this.loadTeams();
     });
 
     this.events.subscribe('user:logout', () => {

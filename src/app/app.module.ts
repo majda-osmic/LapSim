@@ -16,6 +16,7 @@ import { SimulationsComponent } from './components/simulations/simulations.compo
 import { TeamsComponent } from './components/teams/teams.component';
 import { UserData } from './providers/user-data';
 import { IonicStorageModule } from '@ionic/storage';
+import { ProjectLeadsComponent } from './components/project-leads/project-leads.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { IonicStorageModule } from '@ionic/storage';
     SimulationComponent,
     SimulationsComponent,
     AccountComponent,
+    ProjectLeadsComponent
     ],
     exports: [  ],
   entryComponents: [],

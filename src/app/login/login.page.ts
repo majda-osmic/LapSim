@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserOptions } from '../data-interfaces';
+import { IUserOptions } from '../data-interfaces';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserData } from '../providers/user-data';
@@ -10,7 +10,7 @@ import { UserData } from '../providers/user-data';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-   login: UserOptions = { username: '', password: '', isAdmin: false };
+   login: IUserOptions = { username: '', password: '', isAdmin: false };
   submitted = false;
 
   constructor(
@@ -25,5 +25,4 @@ export class LoginPage {
        this.userData.login(this.login.username);
     }
   }
-
 }

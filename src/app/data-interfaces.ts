@@ -41,8 +41,13 @@ export interface ISoftware {
     version: string;
 }
 
-export interface UserOptions {
+export interface IUserOptions {
     username: string;
     password: string;
     isAdmin: boolean;
+}
+
+export interface IProjectLead {
+    username: string;
+    teams: ITeam[];
 }

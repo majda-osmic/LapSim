@@ -11,12 +11,15 @@
           <ion-item-divider>
             <ion-label>Teams</ion-label>
           </ion-item-divider>
-          <teams ></teams>
+          <teams></teams>
         </ion-item-group>
-        <ion-item-divider *ngIf="loggedIn && isAdmin">
-          <ion-label>Admin Tools</ion-label>
-        </ion-item-divider>
 
+        <ion-item-group>
+          <ion-item-divider *ngIf="loggedIn && isAdmin">
+            <ion-label>Project Leaders</ion-label>
+          </ion-item-divider>
+          <project-leads></project-leads>
+        </ion-item-group>
         <ion-item-group>
           <ion-item-divider>
             <ion-label>Account</ion-label>

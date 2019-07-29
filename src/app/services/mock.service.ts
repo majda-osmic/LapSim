@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ISoftwarePackage, ISimulation, ITeam, IAccountDetail } from '../data-interfaces';
+import { ISoftwarePackage, ISimulation, ITeam, IAccountDetail, IProjectLead } from '../data-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -8,46 +8,62 @@ export class MockService {
 
   constructor() { }
 
-   createTeams(): ITeam[] {
+  createProjectLeads(): IProjectLead[] {
+    const mockTeams = this.createTeams();
     return [{
+      userName: 'max',
+      teams: mockTeams
+    },
+    {
+      userName: 'mike',
+      teams: mockTeams
+    },
+    {
+      userName: 'danny',
+      teams: mockTeams
+    }];
+  }
+
+  createTeams(): ITeam[] {
+    return [{
+      id: 1,
+      name: 'Super Fast',
+      league: '',
+      budget: 100000,
+      usedBudget: 5000,
+      accounts: [{
         id: 1,
-        name: 'Super Fast',
-        league: '',
-        budget: 100000,
-        usedBudget: 5000,
-        accounts: [{
-          id: 1,
-          uniqueId: 'a1b2c3',
-          name: 'small account',
-          cpus: 200,
-        },
+        uniqueId: 'a1b2c3',
+        name: 'small account',
+        cpus: 200,
+      },
       ],
+    },
+    {
+      id: 2,
+      name: 'Not that fast',
+      league: 'but still good enough to have 3 accounts',
+      budget: 500000,
+      usedBudget: 8562,
+      accounts: [{
+        id: 2,
+        uniqueId: 'd4g57z3',
+        name: 'large account',
+        cpus: 500,
       },
       {
-        id: 2,
-        name: 'Not that fast',
-        league: 'but still good enough to have 3 accounts',
-        budget: 500000,
-        usedBudget: 8562,
-        accounts: [{
-          id: 2,
-          uniqueId: 'd4g57z3',
-          name: 'large account',
-          cpus: 500,
-        },
-        {
-          id: 3,
-          uniqueId: '3fzh6hu6',
-          name: 'smaller account',
-          cpus: 350,
-        },
-        {
-          id: 7,
-          uniqueId: '3f85456',
-          name: 'smallest account',
-          cpus: 100,
-        }],
-      }
+        id: 3,
+        uniqueId: '3fzh6hu6',
+        name: 'smaller account',
+        cpus: 350,
+      },
+      {
+        id: 7,
+        uniqueId: '3f85456',
+        name: 'smallest account',
+        cpus: 100,
+      }],
+    }
     ];
   }
 

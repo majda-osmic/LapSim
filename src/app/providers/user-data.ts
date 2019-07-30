@@ -14,34 +14,34 @@ export class UserData {
         public storage: Storage
     ) { }
 
-    login(username: string): Promise<any> {
+    login(userName: string): Promise<any> {
         return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
-            this.setUsername(username);
+            this.setUsername(userName);
             return this.events.publish('user:login');
         });
     }
 
     logout(): Promise<any> {
         return this.storage.remove(this.HAS_LOGGED_IN).then(() => {
-            return this.storage.remove('username');
+            return this.storage.remove('userName');
         }).then(() => {
             this.events.publish('user:logout');
         });
     }
 
     setUsername(username: string): Promise<any> {
-        return this.storage.set('username', username);
+        return this.storage.set('userName', username);
     }
 
 
     getUsername(): Promise<string> {
-        return this.storage.get('username').then((value) => {
+        return this.storage.get('userName').then((value) => {
             return value;
         });
     }
 
     isLoggedInAsAdmin(): Promise<boolean> {
-        return this.storage.get('username').then((value) => {
+        return this.storage.get('userName').then((value) => {
             return value === 'majda'; // TODO:
         });
     }

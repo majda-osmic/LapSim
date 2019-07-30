@@ -10,7 +10,11 @@ export class MockService {
 
   getTeams(projectLead: string): ITeam[] {
     const leads = this.createProjectLeads();
-    return leads.find(item => item.userName === projectLead).teams;
+    const pl = leads.find(item => item.userName === projectLead);
+    if (pl !== undefined) {
+      return pl.teams;
+    }
+    return undefined;
   }
 
   createProjectLeads(): IProjectLead[] {

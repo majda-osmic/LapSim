@@ -42,12 +42,12 @@ export interface ISoftware {
 }
 
 export interface IUserOptions {
-    username: string;
+    userName: string;
     password: string;
     isAdmin: boolean;
 }
 
 export interface IProjectLead {
-    username: string;
+    userName: string;
     teams: ITeam[];
 }

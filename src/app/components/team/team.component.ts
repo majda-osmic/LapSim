@@ -1,15 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ITeam, IAccountDetail } from 'src/app/data-interfaces';
 import { IAccountDisplay } from 'src/app/display-interfaces';
 import { TeamsService } from 'src/app/services/teams.service';
 import { SimulationsService } from 'src/app/services/simulations.service';
+import { createWiresService } from 'selenium-webdriver/firefox';
 
 @Component({
   selector: 'team',
   templateUrl: './team.component.html',
   styleUrls: ['./team.component.scss'],
 })
-export class TeamComponent implements OnInit {
+export class TeamComponent implements OnInit, OnDestroy {
 
   accounts: IAccountDisplay[];
   team: ITeam;
@@ -31,6 +32,10 @@ export class TeamComponent implements OnInit {
               private simulationService: SimulationsService) { }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    console.log('destroying team component');
+  }
 
   onAccountCheckChange() {
     this.simulationService.notifyAccountVisibilityChange(this.team.id);

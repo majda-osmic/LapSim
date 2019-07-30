@@ -33,7 +33,7 @@ export class MockService {
     },
     {
       userName: 'majda',
-      teams: mockTeams
+      teams: []
     }];
   }
 

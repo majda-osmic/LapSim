@@ -33,9 +33,7 @@ export class TeamsService {
   }
 
   async getTeam(id: number): Promise<ITeam> {
-    if (this.teams === undefined || this.teams === []) {
-      await this.getTeams();
-    }
+    await this.getTeams();
     return this.teams.find(item => item.id === id);
   }
 

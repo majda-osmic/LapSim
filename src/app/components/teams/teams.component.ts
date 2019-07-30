@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ITeam } from 'src/app/data-interfaces';
 import { NavController, Events } from '@ionic/angular';
 import { TeamsService } from 'src/app/services/teams.service';
@@ -7,7 +7,7 @@ import { TeamsService } from 'src/app/services/teams.service';
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss'],
 })
-export class TeamsComponent implements OnInit {
+export class TeamsComponent implements OnInit, OnDestroy {
 
   private expandedMap: Map<number, boolean> = new Map<number, boolean>();
   private teams: ITeam[];
@@ -30,13 +30,6 @@ export class TeamsComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.events.subscribe('user:login', async () => {
-      await this.loadTeams();
-    });
-
-    this.events.subscribe('user:logout', () => {
-      this.loadedTeams = [];
-    });
     await this.loadTeams();
   }
 
@@ -55,8 +48,12 @@ export class TeamsComponent implements OnInit {
   viewTeam(team: ITeam) {
     if (team !== undefined) {
       this.selectedTeam = team;
-      this.nav.navigateForward(`/team/${team.id}`);
+      this.nav.navigateForward(`/simulations/${team.id}`);
     }
+  }
+
+  ngOnDestroy () {
+    console.log('destroying teams  component');
   }
 
   private async loadTeams() {

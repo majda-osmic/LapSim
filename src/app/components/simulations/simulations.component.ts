@@ -3,7 +3,7 @@ import { ISimulation, ITeam } from 'src/app/data-interfaces';
 import { SimulationsService } from 'src/app/services/simulations.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeamsService } from 'src/app/services/teams.service';
-import { Events } from '@ionic/angular';
+import { Events, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-simulations',
@@ -19,6 +19,7 @@ export class SimulationsComponent implements OnInit {
   constructor(private simService: SimulationsService,
               private teamService: TeamsService,
               private route: ActivatedRoute,
+              private nav: NavController,
               private events: Events
   ) { }
 
@@ -28,16 +29,14 @@ export class SimulationsComponent implements OnInit {
       await this.updateVisibleSimulations(teamId);
     });
 
-    this.events.subscribe('user:logout', () => {
-      this.clearData();
-    });
-
-    this.events.subscribe('user:login', async () => {
-      await this.getTeamData();
-    });
-
     await this.getTeamData();
   }
+
+  // onSettingsClicked() {
+  //   if (this.team !== undefined) {
+  //     this.nav.navigateForward(`/team/${this.team.id}`);
+  //   }
+  // }
 
   private async updateVisibleSimulations(id: number) {
     if (this.team !== undefined && this.team.id === id) {
@@ -53,10 +52,5 @@ export class SimulationsComponent implements OnInit {
     }
   }
 
-  private clearData() {
-    this.simulations = [];
-    this.team = undefined;
-    this.progress = 0;
-  }
 
 }

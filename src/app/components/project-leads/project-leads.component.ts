@@ -15,15 +15,7 @@ export class ProjectLeadsComponent implements OnInit {
  constructor(private plService: ProjectLeadService, private events: Events) { }
 
   async ngOnInit() {
-    this.events.subscribe('user:login', async () => {
-      await this.retrieveLeads();
-    });
-
-    this.events.subscribe('user:logout', () => {
-      this.projectLeaders = [];
-    });
     await this.retrieveLeads();
-
   }
 
   private async retrieveLeads() {

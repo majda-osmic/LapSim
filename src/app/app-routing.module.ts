@@ -4,7 +4,7 @@ import { SimulationsComponent } from './components/simulations/simulations.compo
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'team/:id', component: SimulationsComponent},
+  { path: 'simulations/:id', component: SimulationsComponent},
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
 ];

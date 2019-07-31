@@ -1,15 +1,4 @@
-<ion-toolbar *ngIf="team !== undefined">
-  <ion-title>{{team.name}}</ion-title>
-  <ion-badge slot="end" class="ion-margin">
-    {{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}
-  </ion-badge>
-  <ion-buttons slot="end">
-    <ion-button (click)="onSettingsClicked()">
-      <ion-icon name="settings" ></ion-icon>
-    </ion-button>
-  </ion-buttons>
-  <ion-progress-bar [value]="progress"></ion-progress-bar>
-</ion-toolbar>
+<team-toolbar [team]="team"></team-toolbar>
 <ion-content>
   <ion-chip color="warning" [hidden]="simulations?.length > 0">
     No account selected

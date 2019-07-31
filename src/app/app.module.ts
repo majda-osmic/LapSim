@@ -18,6 +18,7 @@ import { UserData } from './providers/user-data';
 import { IonicStorageModule } from '@ionic/storage';
 import { ProjectLeadsComponent } from './components/project-leads/project-leads.component';
 import { TeamSettingsComponent } from './components/team-settings/team-settings.component';
+import { TeamToolbarComponent } from './components/team-toolbar/team-toolbar.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { TeamSettingsComponent } from './components/team-settings/team-settings.
     SimulationsComponent,
     AccountComponent,
     ProjectLeadsComponent,
-    TeamSettingsComponent
+    TeamSettingsComponent, 
+    TeamToolbarComponent
     ],
     exports: [  ],
   entryComponents: [],

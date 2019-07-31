@@ -3,7 +3,6 @@ import { ISimulation, ITeam } from 'src/app/data-interfaces';
 import { SimulationsService } from 'src/app/services/simulations.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeamsService } from 'src/app/services/teams.service';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-simulations',
@@ -13,13 +12,11 @@ import { NavController } from '@ionic/angular';
 export class SimulationsComponent implements OnInit {
   teamID: number;
   team: ITeam;
-  progress: number;
   simulations: ISimulation[] = [];
 
   constructor(private simService: SimulationsService,
               private teamService: TeamsService,
-              private route: ActivatedRoute,
-              private nav: NavController) { }
+              private route: ActivatedRoute) { }
 
   async ngOnInit() {
     this.teamID = +this.route.snapshot.params.id;
@@ -28,12 +25,6 @@ export class SimulationsComponent implements OnInit {
     });
 
     await this.getTeamData();
-  }
-
-  onSettingsClicked() {
-    if (this.team !== undefined) {
-      this.nav.navigateForward(`/team/${this.team.id}`);
-    }
   }
 
   private async updateVisibleSimulations(id: number) {
@@ -45,7 +36,6 @@ export class SimulationsComponent implements OnInit {
   private async getTeamData() {
     this.team = await this.teamService.getTeam(this.teamID);
     if (this.team !== undefined) {
-      this.progress = this.team.usedBudget / this.team.budget;
       await this.updateVisibleSimulations(this.team.id);
     }
   }

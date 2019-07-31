@@ -1,0 +1,15 @@
+<ion-toolbar *ngIf="team !== undefined">
+    <ion-title>{{team.name}}</ion-title>
+    <ion-badge slot="end" class="ion-margin">
+      {{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}
+    </ion-badge>
+    <ion-buttons slot="end">
+      <ion-button (click)="onSettingsClicked()" *ngIf="readOnly">
+        <ion-icon name="settings" ></ion-icon>
+      </ion-button>
+      <ion-button (click)="onViewSimsClicked()" *ngIf="!readOnly">
+          <ion-icon name="eye" ></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-progress-bar [value]="team.usedBudget / team.budget"></ion-progress-bar>
+  </ion-toolbar>

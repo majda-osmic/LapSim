@@ -1,16 +1,16 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { ITeam, IAccountDetail } from 'src/app/data-interfaces';
+import { Component, OnInit, Input } from '@angular/core';
+import { ITeam } from 'src/app/data-interfaces';
 import { IAccountDisplay } from 'src/app/display-interfaces';
 import { TeamsService } from 'src/app/services/teams.service';
 import { SimulationsService } from 'src/app/services/simulations.service';
-import { createWiresService } from 'selenium-webdriver/firefox';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'team',
   templateUrl: './team.component.html',
   styleUrls: ['./team.component.scss'],
 })
-export class TeamComponent implements OnInit, OnDestroy {
+export class TeamComponent implements OnInit {
 
   accounts: IAccountDisplay[];
   team: ITeam;
@@ -29,15 +29,19 @@ export class TeamComponent implements OnInit, OnDestroy {
   @Input() preview: boolean;
 
   constructor(private teamService: TeamsService,
-              private simulationService: SimulationsService) { }
+              private simulationService: SimulationsService,
+              private nav: NavController) { }
 
   ngOnInit() { }
 
-  ngOnDestroy() {
-    console.log('destroying team component');
-  }
 
   onAccountCheckChange() {
     this.simulationService.notifyAccountVisibilityChange(this.team.id);
+  }
+
+  onSettingsClicked() {
+    if (this.team !== undefined) {
+      this.nav.navigateForward(`/team/${this.team.id}`);
+    }
   }
 }

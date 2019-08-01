@@ -2,38 +2,38 @@
   <ion-label> {{simulation.name}} </ion-label>
   <ion-row>
     <ion-col>
-      <ion-label>
-        <p>sims:</p>{{simulation.runs}}
+      <ion-label position="floting">
+        <ion-text color="primary">sims:</ion-text>{{simulation.runs}}
       </ion-label>
     </ion-col>
     <ion-col>
-      <ng-template let-timeSpan="aVariable"
-        [ngTemplateOutletContext]="{ aVariable: +(simulation.endTime) - +(simulation.startTime) }"
-        [ngTemplateOutlet]="selfie" #selfie>
-        <ion-label>
-          <p>time:</p>{{timeSpan}}
+        <ng-template let-timeSpan="aVariable"
+          [ngTemplateOutletContext]="{ aVariable: +(simulation.endTime) - +(simulation.startTime) }"
+          [ngTemplateOutlet]="selfie" #selfie>
+          <ion-label position="floting">
+            <ion-text color="primary">time:</ion-text>{{timeSpan.toLocaleString()}}
+          </ion-label>
+        </ng-template>
+      </ion-col>
+    <ion-col>
+        <ion-label position="floting">
+          <ion-text color="primary">CPUs:</ion-text> {{simulation.cpus}}
         </ion-label>
-      </ng-template>
-    </ion-col>
-    <ion-col>
-      <ion-label>
-        <p>CPUs:</p> {{simulation.cpus}}
-      </ion-label>
-    </ion-col>
+      </ion-col>
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-label>
+      <ion-label position="floting">
         <p> {{simulation.startTime.toLocaleString()}}</p>
       </ion-label>
     </ion-col>
     <ion-col>
-      <ion-label>
+      <ion-label position="floting">
         <p> {{simulation.location}} </p>
       </ion-label>
     </ion-col>
     <ion-col>
-      <ion-label>
+      <ion-label position="floting">
         <p>Budget: {{simulation.usedBudget}}</p>
       </ion-label>
     </ion-col>

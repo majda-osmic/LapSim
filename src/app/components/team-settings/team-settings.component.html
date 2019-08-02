@@ -6,26 +6,46 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-label>
-              <p>Name:</p> {{account.info.name}}
-              <p>Id:</p>{{account.info.uniqueId}}
-              <p>CPUs:</p>{{account.info.cpus}}
-              <p>Simulations:</p>{{account.detail.simulations.length}}
-            </ion-label>
+            <ion-col>
+              <ion-label position="flotaing">
+                <ion-text color="primary">Name:</ion-text> {{account.info.name}}
+              </ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label position="flotaing">
+                <ion-text color="primary">CPUs:</ion-text>{{account.info.cpus}}
+              </ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label position="flotaing">
+                <ion-text color="primary">Simulations:</ion-text>{{account.detail.simulations.length}}
+              </ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label position="flotaing">
+                <ion-text color="primary">Last update:</ion-text>
+                {{account.detail.softwarePackage.timestamp.toLocaleString()}}
+              </ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label position="floating">
+                <ion-text color="primary">Id: </ion-text>{{account.info.uniqueId}}
+              </ion-label>
+            </ion-col>
           </ion-col>
           <ion-col>
-            <ion-list *ngFor="let item of account.detail.softwarePackage.software">
+            <ion-col>
               <ion-label>
-                {{item.name}}
-                {{item.version}}
+                <ion-text color="primary">Software:</ion-text>
+                <ion-list *ngFor="let item of account.detail.softwarePackage.software">
+                  <ion-text>
+                    {{item.name}} <p>{{item.version}}</p>
+                  </ion-text>
+                </ion-list>
               </ion-label>
-            </ion-list>
+            </ion-col>
           </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-label>
-            <p>Last update: {{account.detail.softwarePackage.timestamp}}</p>
-          </ion-label>
+
         </ion-row>
       </ion-grid>
     </ion-item>

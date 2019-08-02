@@ -1,3 +1,6 @@
-<ion-label position="flotaing">
-  <ion-text color="primary">{{label}}:</ion-text>{{text}}
+<ion-label position="flotaing" >
+  <ion-text color="primary">{{label}}:</ion-text>
+  <ion-text *ngIf="!canEdit"> {{text}} </ion-text>
 </ion-label>
+<ion-input *ngIf="canEdit" type="{{inputType}}" value="{{text}}" placeholder="({{label}})"></ion-input>
+

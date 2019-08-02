@@ -14,6 +14,7 @@ export class TeamSettingsComponent implements OnInit {
   teamID: number;
   team: ITeam;
   accounts: IAccountDisplay[];
+  editActive: boolean;
 
   constructor(private teamService: TeamsService,
               private route: ActivatedRoute) { }

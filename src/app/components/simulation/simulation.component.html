@@ -7,15 +7,15 @@
       </ion-label>
     </ion-col>
     <ion-col>
-        <ng-template let-timeSpan="aVariable"
-          [ngTemplateOutletContext]="{ aVariable: +(simulation.endTime) - +(simulation.startTime) }"
-          [ngTemplateOutlet]="selfie" #selfie>
-          <label-text label="time" text="{{timeSpan.toLocaleString()}}"></label-text>
-        </ng-template>
-      </ion-col>
+      <ng-template let-timeSpan="aVariable"
+        [ngTemplateOutletContext]="{ aVariable: +(simulation.endTime) - +(simulation.startTime) }"
+        [ngTemplateOutlet]="selfie" #selfie>
+        <label-text label="time" text="{{timeSpan.toLocaleString()}}"></label-text>
+      </ng-template>
+    </ion-col>
     <ion-col>
-        <label-text label="CPUs" text="{{simulation.cpus}}"></label-text>
-      </ion-col>
+      <label-text label="CPUs" text="{{simulation.cpus}}"></label-text>
+    </ion-col>
   </ion-row>
   <ion-row>
     <ion-col>

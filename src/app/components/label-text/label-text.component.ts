@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'label-text',
@@ -9,6 +9,9 @@ export class LabelTextComponent implements OnInit {
 
   @Input() text: string;
   @Input() label: string;
+  @Input() canEdit: false;
+  @Input() inputType: any = 'text';
+  @Output() edited: any;
 
   constructor() { }
 

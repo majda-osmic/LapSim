@@ -10,15 +10,11 @@
         <ng-template let-timeSpan="aVariable"
           [ngTemplateOutletContext]="{ aVariable: +(simulation.endTime) - +(simulation.startTime) }"
           [ngTemplateOutlet]="selfie" #selfie>
-          <ion-label position="floting">
-            <ion-text color="primary">time:</ion-text>{{timeSpan.toLocaleString()}}
-          </ion-label>
+          <label-text label="time" text="{{timeSpan.toLocaleString()}}"></label-text>
         </ng-template>
       </ion-col>
     <ion-col>
-        <ion-label position="floting">
-          <ion-text color="primary">CPUs:</ion-text> {{simulation.cpus}}
-        </ion-label>
+        <label-text label="CPUs" text="{{simulation.cpus}}"></label-text>
       </ion-col>
   </ion-row>
   <ion-row>

@@ -77,9 +77,9 @@ export class TeamsService {
   }
 
   private clear() {
-    this.teams = undefined;
-    this.accounts = undefined;
-    this.teamToAccountDisplayMapping = undefined;
+    this.teams = [];
+    this.accounts = [];
+    this.teamToAccountDisplayMapping.clear();
   }
 
 }

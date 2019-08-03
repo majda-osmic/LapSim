@@ -26,7 +26,6 @@ export class TeamComponent implements OnInit {
   }
 
   @Input() showDetails: boolean;
-  @Input() preview: boolean;
 
   constructor(private teamService: TeamsService,
               private simulationService: SimulationsService,

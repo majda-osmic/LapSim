@@ -11,7 +11,7 @@ import { Events } from '@ionic/angular';
 })
 export class ProjectLeadsComponent implements OnInit {
 
-  projectLeaders: IProjectLead[];
+ projectLeaders: IProjectLead[];
  constructor(private plService: ProjectLeadService, private events: Events) { }
 
   async ngOnInit() {

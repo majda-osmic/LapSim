@@ -6,10 +6,19 @@ import { ISoftwarePackage, ISimulation, ITeam, IAccountDetail, IProjectLead } fr
 })
 export class MockService {
 
+  private leads: IProjectLead[];
+
   constructor() { }
 
+  getAllTeams(): ITeam[] {
+    const leads = this.getProjectLeads();
+    const teams = leads.map(item => item.teams);
+    return [].concat.apply([], teams);
+  }
+
+
   getTeams(projectLead: string): ITeam[] {
-    const leads = this.createProjectLeads();
+    const leads = this.getProjectLeads();
     const pl = leads.find(item => item.userName === projectLead);
     if (pl !== undefined) {
       return pl.teams;
@@ -17,24 +26,27 @@ export class MockService {
     return undefined;
   }
 
-  createProjectLeads(): IProjectLead[] {
-    const mockTeams = this.createTeams();
-    return [{
-      userName: 'max',
-      teams: mockTeams.slice(0)
-    },
-    {
-      userName: 'mike',
-      teams: mockTeams.slice(1)
-    },
-    {
-      userName: 'danny',
-      teams: mockTeams
-    },
-    {
-      userName: 'majda',
-      teams: []
-    }];
+  getProjectLeads(): IProjectLead[] {
+    if (this.leads === undefined) {
+      const mockTeams = this.createTeams();
+      this.leads = [{
+        userName: 'max',
+        teams: mockTeams.slice(0)
+      },
+      {
+        userName: 'mike',
+        teams: mockTeams.slice(1)
+      },
+      {
+        userName: 'danny',
+        teams: mockTeams
+      },
+      {
+        userName: 'majda',
+        teams: []
+      }];
+    }
+    return this.leads;
   }
 
   private createTeams(): ITeam[] {

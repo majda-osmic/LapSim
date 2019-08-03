@@ -1,5 +1,5 @@
 <ion-list *ngFor="let account of accounts">
-  <account [preview]="preview" [account]="account" (show)="onAccountCheckChange()"></account>
+  <account [account]="account" (show)="onAccountCheckChange()"></account>
 </ion-list>
 <ion-buttons slot="end">
   <ion-button (click)="onSettingsClicked()">

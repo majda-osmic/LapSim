@@ -26,8 +26,12 @@ export class TeamsService {
       return [];
     }
     if (this.teams === undefined || this.teams.length === 0) {
-      const userName = await this.userData.getUsername();
-      this.teams = this.mockService.getTeams(userName); // TODO: replace with data from server, mock for now
+      if (await this.userData.isLoggedInAsAdmin()) {
+        this.teams = this.mockService.getAllTeams();
+      } else {
+        const userName = await this.userData.getUsername();
+        this.teams = this.mockService.getTeams(userName); // TODO: replace with data from server, mock for now
+      }
     }
     return this.teams;
   }
@@ -73,9 +77,9 @@ export class TeamsService {
   }
 
   private clear() {
-    this.teams = [];
-    this.accounts = [];
-    this.teamToAccountDisplayMapping.clear();
+    this.teams = undefined;
+    this.accounts = undefined;
+    this.teamToAccountDisplayMapping = undefined;
   }
 
 }

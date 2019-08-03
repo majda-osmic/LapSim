@@ -18,7 +18,7 @@ export class ProjectLeadService {
     }
 
     if (this.leads === undefined || this.leads.length === 0) {
-      this.leads = this.mockService.createProjectLeads();
+      this.leads = this.mockService.getProjectLeads();
     }
     return this.leads;
   }

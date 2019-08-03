@@ -4,4 +4,6 @@
       {{leader.userName}}
     </ion-label>
   </ion-item>
+  <teams *ngIf="leader.teams.length > 0" [loadedTeams]="leader.teams"></teams>
+
 </ion-list>

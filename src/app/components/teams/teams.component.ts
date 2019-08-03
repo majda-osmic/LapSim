@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { ITeam } from 'src/app/data-interfaces';
 import { NavController } from '@ionic/angular';
 import { TeamsService } from 'src/app/services/teams.service';
@@ -7,13 +7,15 @@ import { TeamsService } from 'src/app/services/teams.service';
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss'],
 })
-export class TeamsComponent implements OnInit {
+export class TeamsComponent implements OnInit, OnChanges {
 
   private expandedMap: Map<number, boolean> = new Map<number, boolean>();
   private teams: ITeam[];
 
-  set loadedTeams(val: ITeam[]) {
-    if (val !== undefined) {
+  @Input() loadOnInit: string;
+
+  @Input() set loadedTeams(val: ITeam[]) {
+    if (val !== undefined && val.length > 0) {
       this.teams = val;
       this.teams.forEach(element => {
         this.expandedMap[element.id] = false;
@@ -29,6 +31,11 @@ export class TeamsComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    await this.loadTeams();
+  }
+
+  async ngOnChanges() {
+    // TODO: load if correct property
     await this.loadTeams();
   }
 
@@ -52,6 +59,8 @@ export class TeamsComponent implements OnInit {
   }
 
   private async loadTeams() {
-    this.loadedTeams = await this.teamsService.getTeams();
+    if (this.loadOnInit === 'true') {
+      this.loadedTeams = await this.teamsService.getTeams();
+    }
   }
 }

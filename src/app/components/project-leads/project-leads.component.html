@@ -1,14 +1,20 @@
 <ion-list *ngFor="let leader of projectLeaders">
-  <ion-item (click) ="onItemSelected(leader)">
+  <ion-item detail *ngIf="selectedLeader !== leader" (click)="onItemSelected(leader)">
     <ion-label>
-      <ion-text color="primary" *ngIf="selectedLeader === leader">
-        {{leader.userName}}
-      </ion-text>
-
-      <ion-text *ngIf="selectedLeader !== leader">
-        {{leader.userName}}
-      </ion-text>
+      {{leader.userName}}
     </ion-label>
   </ion-item>
-  <teams *ngIf="selectedLeader === leader && leader?.teams?.length > 0" [loadedTeams]="leader.teams"></teams>
+
+  <ion-grid *ngIf="selectedLeader === leader" class="team-detail">
+    <ion-row>
+      <ion-label>
+        <ion-text color="primary">
+          {{leader.userName}}
+        </ion-text>
+      </ion-label>
+    </ion-row>
+    <ion-row>
+      <teams [loadedTeams]="leader.teams"></teams>
+    </ion-row>
+  </ion-grid>
 </ion-list>

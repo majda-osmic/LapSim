@@ -12,7 +12,7 @@ import { Events } from '@ionic/angular';
 export class ProjectLeadsComponent implements OnInit {
 
  projectLeaders: IProjectLead[];
- selectedLeader: IProjectLead; 
+ selectedLeader: IProjectLead;
 
  constructor(private plService: ProjectLeadService, private events: Events) { }
 

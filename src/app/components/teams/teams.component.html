@@ -1,15 +1,11 @@
-<ion-list *ngFor="let team of teams">
+<ion-list *ngFor="let team of teams" >
   <div>
-    <div class="inline">
-      <div>
-        <ion-icon slot="start" name="arrow-dropright" (click)="showDetails(team)"
-          [hidden]="expandedMap[team.id]===true">
-        </ion-icon>
-        <ion-icon slot="start" name="arrow-dropdown" (click)="hideDetails(team)"
-          [hidden]="expandedMap[team.id]===false">
-        </ion-icon>
-      </div>
-      <ion-label (click)="viewTeam(team)" class="team-label">
+    <div class="inline expander">
+      <ion-icon slot="start" name="arrow-dropright" (click)="showDetails(team)" [hidden]="expandedMap[team.id]===true">
+      </ion-icon>
+      <ion-icon slot="start" name="arrow-dropdown" (click)="hideDetails(team)" [hidden]="expandedMap[team.id]===false">
+      </ion-icon>
+      <ion-label (click)="viewTeam(team)" class="click-label">
         {{team.name}}
       </ion-label>
     </div>

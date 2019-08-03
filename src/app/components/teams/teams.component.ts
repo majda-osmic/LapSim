@@ -53,6 +53,7 @@ export class TeamsComponent implements OnInit, OnChanges {
 
   viewTeam(team: ITeam) {
     if (team !== undefined) {
+      this.expandedMap[team.id] = true;
       this.selectedTeam = team;
       this.nav.navigateForward(`/simulations/${team.id}`);
     }

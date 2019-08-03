@@ -12,10 +12,16 @@ import { Events } from '@ionic/angular';
 export class ProjectLeadsComponent implements OnInit {
 
  projectLeaders: IProjectLead[];
+ selectedLeader: IProjectLead; 
+
  constructor(private plService: ProjectLeadService, private events: Events) { }
 
   async ngOnInit() {
     await this.retrieveLeads();
+  }
+
+  onItemSelected(lead: IProjectLead) {
+    this.selectedLeader = lead;
   }
 
   private async retrieveLeads() {

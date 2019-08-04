@@ -14,17 +14,27 @@ export class TeamSettingsComponent implements OnInit {
   teamID: number;
   team: ITeam;
   accounts: IAccountDisplay[];
-  editActive: boolean;
+  editActive = false;
 
-  constructor(private teamService: TeamsService,
-              private route: ActivatedRoute) { }
-
-
+  constructor(private teamService: TeamsService, private route: ActivatedRoute) { }
 
   async ngOnInit() {
     this.teamID = +this.route.snapshot.params.id;
     this.teamService.getTeam(this.teamID).then(team => this.team = team);
     this.teamService.getAccountDisplay(this.teamID).then(accounts => this.accounts = accounts);
   }
+
+  onEdit() {
+    this.editActive = true;
+  }
+
+  onSave() {
+    this.editActive = false;
+  }
+
+  onCancel() {
+    this.editActive = false;
+  }
+
 
 }

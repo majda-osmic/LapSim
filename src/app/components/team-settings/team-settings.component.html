@@ -35,12 +35,15 @@
               </ion-label>
             </ion-col>
           </ion-col>
-
+        </ion-row>
+        <ion-row>
+          <ion-button *ngIf="!editActive" (click)="onEdit()">Edit</ion-button>
+          <div class="inline" *ngIf="editActive">
+            <ion-button (click)="onSave()">Save</ion-button>
+            <ion-button (click)="onCancel()">Cancel</ion-button>
+          </div>
         </ion-row>
       </ion-grid>
-
-      <ion-button *ngIf="!editActive" (click)="editActive=true">Edit</ion-button>
-      <ion-button *ngIf="editActive" (click)="editActive=false">Save</ion-button>
     </ion-item>
   </ion-list>
 </ion-content>

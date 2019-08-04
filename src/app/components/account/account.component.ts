@@ -9,7 +9,6 @@ import { IAccountDisplay } from '../../display-interfaces';
 export class AccountComponent implements OnInit {
 
   @Input() account: IAccountDisplay;
-  @Input() preview: boolean;
   @Output() show = new EventEmitter();
 
   constructor() { }

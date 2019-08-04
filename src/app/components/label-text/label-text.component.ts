@@ -7,14 +7,20 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 })
 export class LabelTextComponent implements OnInit {
 
-  @Input() text: string;
+  originalText: string;
+
+  @Input() set text(val: string) {
+    this.originalText = val;
+  }
   @Input() label: string;
-  @Input() canEdit: false;
+  @Input() canEdit = 'false';
   @Input() inputType: any = 'text';
-  @Output() edited: any;
+  @Output() edited;
 
-  constructor() { }
+  constructor() {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

@@ -1,6 +1,10 @@
-<ion-label position="flotaing" >
-  <ion-text color="primary">{{label}}:</ion-text>
-  <ion-text *ngIf="!canEdit"> {{text}} </ion-text>
-</ion-label>
-<ion-input *ngIf="canEdit" type="{{inputType}}" value="{{text}}" placeholder="({{label}})"></ion-input>
+<ng-template #readonly>
+  <ion-text> {{originalText}} </ion-text>
+</ng-template>
 
+<div class="inline">
+  <ion-label color="primary">{{label}}:</ion-label>
+  <ng-template *ngIf="canEdit === 'true'; else readonly">
+    <ion-input type="{{inputType}}" placeholder="({{originalText}})"></ion-input>
+  </ng-template>
+</div>

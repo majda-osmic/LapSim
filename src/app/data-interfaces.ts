@@ -8,14 +8,14 @@ export interface ITeam {
 }
 
 export interface IAccountInfo {
-    id: number;
+    id: string;
     uniqueId: string;
     name: string;
     cpus: number;
 }
 
 export interface IAccountDetail {
-    id: number;
+    id: string;
     simulations: ISimulation[];
     softwarePackage: ISoftwarePackage;
 }

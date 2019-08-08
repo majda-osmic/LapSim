@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ISoftwarePackage, ISimulation, ITeam, IAccountDetail, IProjectLead } from '../data-interfaces';
+import { HttpClient } from '@angular/common/http';
+import { ISoftwarePackage, ISimulation, ITeam, IAccountDetail, IProjectLead, IAccountInfo } from '../data-interfaces';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,7 @@ export class MockService {
 
   private leads: IProjectLead[];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getAllTeams(): ITeam[] {
     const leads = this.getProjectLeads();
@@ -50,6 +52,9 @@ export class MockService {
   }
 
   private createTeams(): ITeam[] {
+
+    const accounts =  this.http.get<IAccountInfo[]>(`/api/accounts/`).subscribe(accounts => console.log(accounts));
+
     return [{
       id: 1,
       name: 'Super Fast',
@@ -57,7 +62,7 @@ export class MockService {
       budget: 100000,
       usedBudget: 5000,
       accounts: [{
-        id: 1,
+        id: '1',
         uniqueId: 'a1b2c3',
         name: 'small account',
         cpus: 200,
@@ -71,19 +76,19 @@ export class MockService {
       budget: 500000,
       usedBudget: 8562,
       accounts: [{
-        id: 2,
+        id: '2',
         uniqueId: 'd4g57z3',
         name: 'large account',
         cpus: 500,
       },
       {
-        id: 3,
+        id: '3',
         uniqueId: '3fzh6hu6',
         name: 'smaller account',
         cpus: 350,
       },
       {
-        id: 7,
+        id: '7',
         uniqueId: '3f85456',
         name: 'smallest account',
         cpus: 100,
@@ -98,23 +103,23 @@ export class MockService {
 
     return [
       {
-        id: 1,
+        id: '1',
         simulations: mockSims.slice(0, 2),
         softwarePackage: packages[0]
       },
       {
-        id: 2,
+        id: '2',
         simulations: mockSims.slice(3, 4),
         softwarePackage: packages[1]
       },
       {
-        id: 3,
+        id: '3',
         simulations: mockSims.slice(5, 7),
         softwarePackage: packages[2]
 
       },
       {
-        id: 7,
+        id: '7',
         simulations: mockSims.slice(8), // the rest
         softwarePackage: packages[1]
       }
@@ -165,4 +170,13 @@ export class MockService {
     ];
     return packages;
   }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(operation + ' ended up with error: ' + error);
+      return of(result as T);
+    };
+  }
 }
+
+

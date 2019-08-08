@@ -20,6 +20,7 @@ import { ProjectLeadsComponent } from './components/project-leads/project-leads.
 import { TeamSettingsComponent } from './components/team-settings/team-settings.component';
 import { TeamToolbarComponent } from './components/team-toolbar/team-toolbar.component';
 import { LabelTextComponent } from './components/label-text/label-text.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { LabelTextComponent } from './components/label-text/label-text.component
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     IonicStorageModule.forRoot()
   ],
   providers: [

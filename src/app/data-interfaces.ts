@@ -1,5 +1,5 @@
 export interface ITeam {
-    id: number;
+    id: string;
     name: string;
     league: string;
     accounts: IAccountInfo[];
@@ -21,7 +21,7 @@ export interface IAccountDetail {
 }
 
 export interface ISimulation {
-    id: number;
+    id: string;
     name: string;
     startTime: Date;
     endTime: Date;
@@ -49,5 +49,5 @@ export interface IUserOptions {
 
 export interface IProjectLead {
     userName: string;
-    teams: ITeam[];
+    teams: string[];
 }

@@ -27,7 +27,7 @@ export class SimulationsComponent implements OnInit {
     await this.getTeamData();
   }
 
-  private async updateVisibleSimulations(id: number) {
+  private async updateVisibleSimulations(id: string) {
     if (this.team !== undefined && this.team.id === id) {
       this.simulations = await this.simService.getVisibleSimulationsForTeam(id);
     }

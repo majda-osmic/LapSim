@@ -36,12 +36,12 @@ export class TeamsService {
     return this.teams;
   }
 
-  async getTeam(id: number): Promise<ITeam> {
+  async getTeam(id: string): Promise<ITeam> {
     await this.getTeams();
     return this.teams.find(item => item.id === id);
   }
 
-  async getAccountDisplay(teamId: number): Promise<IAccountDisplay[]> {
+  async getAccountDisplay(teamId: string): Promise<IAccountDisplay[]> {
     if (this.teamToAccountDisplayMapping[teamId] === undefined) {
       const team = await this.getTeam(teamId);
       if (team === undefined) {

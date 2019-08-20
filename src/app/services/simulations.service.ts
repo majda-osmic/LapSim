@@ -22,7 +22,7 @@ export class SimulationsService {
     });
   }
 
-  async getVisibleSimulationsForTeam(teamId: number): Promise<ISimulation[]> {
+  async getVisibleSimulationsForTeam(teamId: string): Promise<ISimulation[]> {
     const loggedIn = await this.userData.isLoggedIn();
 
     if (!loggedIn) {

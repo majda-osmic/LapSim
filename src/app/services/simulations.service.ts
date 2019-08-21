@@ -10,7 +10,7 @@ import { Events } from '@ionic/angular';
 export class SimulationsService {
   private teamVisibleSimulationMapping: Map<number, ISimulation[]> = new Map<number, ISimulation[]>();
 
-  @Output() visibleItemsChanged: EventEmitter<number> = new EventEmitter();
+  @Output() visibleItemsChanged: EventEmitter<string> = new EventEmitter();
 
   constructor(private teamService: TeamsService, private userData: UserData, private events: Events) {
     this.events.subscribe('user:login', () => {
@@ -36,13 +36,13 @@ export class SimulationsService {
     return this.teamVisibleSimulationMapping[teamId];
   }
 
-  private async setVisibileSimulationsForTeam(teamId: number) {
+  private async setVisibileSimulationsForTeam(teamId: string) {
     const result = await this.teamService.getAccountDisplay(teamId);
     const accountDisplay = result.filter(item => item.checked === true);
     this.teamVisibleSimulationMapping[teamId] = [].concat(...accountDisplay.map(data => data.detail.simulations));
   }
 
-  async notifyAccountVisibilityChange(teamId: number) {
+  async notifyAccountVisibilityChange(teamId: string) {
     // if the data has already been retrieved, update it
     if (this.teamVisibleSimulationMapping[teamId] !== undefined) {
       await this.setVisibileSimulationsForTeam(teamId);

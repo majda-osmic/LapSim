@@ -11,7 +11,7 @@ import { IAccountDisplay } from 'src/app/display-interfaces';
 })
 export class TeamSettingsComponent implements OnInit {
 
-  teamID: number;
+  teamID: string;
   team: ITeam;
   accounts: IAccountDisplay[];
   editActive = false;
@@ -19,7 +19,7 @@ export class TeamSettingsComponent implements OnInit {
   constructor(private teamService: TeamsService, private route: ActivatedRoute) { }
 
   async ngOnInit() {
-    this.teamID = +this.route.snapshot.params.id;
+    this.teamID = this.route.snapshot.params.id;
     this.teamService.getTeam(this.teamID).then(team => this.team = team);
     this.teamService.getAccountDisplay(this.teamID).then(accounts => this.accounts = accounts);
   }

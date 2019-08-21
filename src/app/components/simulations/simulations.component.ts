@@ -10,7 +10,7 @@ import { TeamsService } from 'src/app/services/teams.service';
   styleUrls: ['./simulations.component.scss'],
 })
 export class SimulationsComponent implements OnInit {
-  teamID: number;
+  teamID: string;
   team: ITeam;
   simulations: ISimulation[] = [];
 
@@ -19,7 +19,7 @@ export class SimulationsComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   async ngOnInit() {
-    this.teamID = +this.route.snapshot.params.id;
+    this.teamID = this.route.snapshot.params.id;
     this.simService.visibleItemsChanged.subscribe(async teamId => {
       await this.updateVisibleSimulations(teamId);
     });
@@ -39,6 +39,4 @@ export class SimulationsComponent implements OnInit {
       await this.updateVisibleSimulations(this.team.id);
     }
   }
-
-
 }

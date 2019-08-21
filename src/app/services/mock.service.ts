@@ -9,6 +9,7 @@ import { Observable, of } from 'rxjs';
 export class MockService {
 
   private leads: IProjectLead[];
+  private teams: ITeam[];
 
   constructor(private http: HttpClient) { }
 
@@ -23,25 +24,25 @@ export class MockService {
     const leads = this.getProjectLeads();
     const pl = leads.find(item => item.userName === projectLead);
     if (pl !== undefined) {
-      return pl.teams;
+      return this.teams.filter(item => pl.teams.indexOf(item.id) > -1);
     }
     return undefined;
   }
 
   getProjectLeads(): IProjectLead[] {
     if (this.leads === undefined) {
-      const mockTeams = this.createTeams();
-      this.leads = [{
+    this.teams = this.createTeams();
+    this.leads = [{
         userName: 'max',
-        teams: mockTeams.slice(0)
+        teams: this.teams.slice(0).map(item => item.id)
       },
       {
         userName: 'mike',
-        teams: mockTeams.slice(1)
+        teams: this.teams.slice(1).map(item => item.id)
       },
       {
         userName: 'danny',
-        teams: mockTeams
+        teams: this.teams.map(item => item.id)
       },
       {
         userName: 'majda',
@@ -52,44 +53,37 @@ export class MockService {
   }
 
   private createTeams(): ITeam[] {
-
-    const accounts =  this.http.get<IAccountInfo[]>(`/api/accounts/`).subscribe(accounts => console.log(accounts));
-
     return [{
-      id: 1,
+      id: '1',
       name: 'Super Fast',
       league: '',
       budget: 100000,
       usedBudget: 5000,
       accounts: [{
-        id: '1',
-        uniqueId: 'a1b2c3',
+        id: 'a1b2c3',
         name: 'small account',
         cpus: 200,
       },
       ],
     },
     {
-      id: 2,
+      id: '2',
       name: 'Not that fast',
       league: 'but still good enough to have 3 accounts',
       budget: 500000,
       usedBudget: 8562,
       accounts: [{
-        id: '2',
-        uniqueId: 'd4g57z3',
+        id: 'd4g57z3',
         name: 'large account',
         cpus: 500,
       },
       {
-        id: '3',
-        uniqueId: '3fzh6hu6',
+        id: '3fzh6hu6',
         name: 'smaller account',
         cpus: 350,
       },
       {
-        id: '7',
-        uniqueId: '3f85456',
+        id: '3f85456',
         name: 'smallest account',
         cpus: 100,
       }],
@@ -129,16 +123,16 @@ export class MockService {
   createMockSimulations(): ISimulation[] {
     const simulations = [
       // tslint:disable: max-line-length
-      { id: 1, startTime: new Date(2019, 1, 6, 12, 38, 45), endTime: new Date(2019, 1, 6, 13, 56, 21), name: 'Sim 1', cpus: 25, usedBudget: 58, runs: 400, location: 'West US' },
-      { id: 2, startTime: new Date(), endTime: new Date(), name: 'Sim 2', cpus: 25, usedBudget: 126, runs: 400, location: 'West US' },
-      { id: 3, startTime: new Date(), endTime: new Date(), name: 'Large sim', cpus: 100, usedBudget: 236, runs: 400, location: 'East US' },
-      { id: 4, startTime: new Date(), endTime: new Date(), name: 'Front Damper Variation', cpus: 136, usedBudget: 59, runs: 400, location: 'West Europe' },
-      { id: 5, startTime: new Date(), endTime: new Date(), name: 'Rear Damper Variation', cpus: 125, usedBudget: 69, runs: 400, location: 'Central Europe' },
-      { id: 6, startTime: new Date(), endTime: new Date(), name: 'Soft Tyres', cpus: 125, usedBudget: 69, runs: 400, location: 'West US' },
-      { id: 7, startTime: new Date(), endTime: new Date(), name: 'Super Soft', cpus: 120, usedBudget: 87, runs: 400, location: 'Central Europe' },
-      { id: 8, startTime: new Date(), endTime: new Date(), name: 'Another Large Sim', cpus: 350, usedBudget: 200, runs: 400, location: 'East US' },
-      { id: 9, startTime: new Date(), endTime: new Date(), name: 'Slightly Larger Sim', cpus: 250, usedBudget: 258, runs: 400, location: 'Central Europe' },
-      { id: 10, startTime: new Date(), endTime: new Date(), name: 'Not so large', cpus: 180, usedBudget: 147, runs: 400, location: 'North Europe' },
+      { id: '1', startTime: new Date(2019, 1, 6, 12, 38, 45), endTime: new Date(2019, 1, 6, 13, 56, 21), name: 'Sim 1', cpus: 25, usedBudget: 58, runs: 400, location: 'West US' },
+      { id: '2', startTime: new Date(), endTime: new Date(), name: 'Sim 2', cpus: 25, usedBudget: 126, runs: 400, location: 'West US' },
+      { id: '3', startTime: new Date(), endTime: new Date(), name: 'Large sim', cpus: 100, usedBudget: 236, runs: 400, location: 'East US' },
+      { id: '4', startTime: new Date(), endTime: new Date(), name: 'Front Damper Variation', cpus: 136, usedBudget: 59, runs: 400, location: 'West Europe' },
+      { id: '5', startTime: new Date(), endTime: new Date(), name: 'Rear Damper Variation', cpus: 125, usedBudget: 69, runs: 400, location: 'Central Europe' },
+      { id: '6', startTime: new Date(), endTime: new Date(), name: 'Soft Tyres', cpus: 125, usedBudget: 69, runs: 400, location: 'West US' },
+      { id: '7', startTime: new Date(), endTime: new Date(), name: 'Super Soft', cpus: 120, usedBudget: 87, runs: 400, location: 'Central Europe' },
+      { id: '8', startTime: new Date(), endTime: new Date(), name: 'Another Large Sim', cpus: 350, usedBudget: 200, runs: 400, location: 'East US' },
+      { id: '9', startTime: new Date(), endTime: new Date(), name: 'Slightly Larger Sim', cpus: 250, usedBudget: 258, runs: 400, location: 'Central Europe' },
+      { id: '10', startTime: new Date(), endTime: new Date(), name: 'Not so large', cpus: 180, usedBudget: 147, runs: 400, location: 'North Europe' },
       // tslint:enable: max-line-length
     ];
     return simulations;

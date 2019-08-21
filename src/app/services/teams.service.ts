@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ITeam, IAccountDetail } from '../data-interfaces';
+import { ITeam, IAccountDetail, IProjectLead } from '../data-interfaces';
 import { MockService } from './mock.service';
 import { IAccountDisplay } from '../display-interfaces';
 import { UserData } from '../providers/user-data';
 import { Events } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,9 @@ import { Events } from '@ionic/angular';
 export class TeamsService {
   private teams: ITeam[];
   private accounts: IAccountDetail[];
-  private teamToAccountDisplayMapping: Map<number, IAccountDetail[]> = new Map<number, IAccountDetail[]>();
+  private teamToAccountDisplayMapping: Map<string, IAccountDetail[]> = new Map<string, IAccountDetail[]>();
 
-  constructor(private mockService: MockService, private userData: UserData, private events: Events) {
+  constructor(private http: HttpClient, private mockService: MockService, private userData: UserData, private events: Events) {
     this.events.subscribe('user:logout', () => {
       this.clear();
     });
@@ -23,18 +24,19 @@ export class TeamsService {
     const loggedIn = this.userData.isLoggedIn();
     if (!loggedIn) {
       this.clear();
-      return [];
+      return null; // todo: error
     }
     if (this.teams === undefined || this.teams.length === 0) {
       if (await this.userData.isLoggedInAsAdmin()) {
-        this.teams = this.mockService.getAllTeams();
+        this.teams = await this.http.get<ITeam[]>(`/api/teams/`).toPromise();
       } else {
         const userName = await this.userData.getUsername();
-        this.teams = this.mockService.getTeams(userName); // TODO: replace with data from server, mock for now
+        this.teams = await this.http.get<ITeam[]>(`api/teams/pl/` + userName).toPromise();
       }
     }
     return this.teams;
   }
+
 
   async getTeam(id: string): Promise<ITeam> {
     await this.getTeams();
@@ -44,7 +46,7 @@ export class TeamsService {
   async getAccountDisplay(teamId: string): Promise<IAccountDisplay[]> {
     if (this.teamToAccountDisplayMapping[teamId] === undefined) {
       const team = await this.getTeam(teamId);
-      if (team === undefined) {
+      if (team === undefined) { // todo: error
         this.clear();
         return [];
       }

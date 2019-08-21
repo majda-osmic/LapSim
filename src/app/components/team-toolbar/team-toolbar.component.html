@@ -1,7 +1,7 @@
 <ion-toolbar *ngIf="team !== undefined">
     <ion-title>{{team.name}}</ion-title>
-    <ion-badge slot="end" class="ion-margin">
-      {{team.usedBudget.toLocaleString()}} of {{team.budget.toLocaleString()}}
+    <ion-badge slot="end" class="ion-margin" *ngIf="team?.usedBudget && team?.budget">
+      {{team?.usedBudget?.toLocaleString()}} of {{team?.budget?.toLocaleString()}}
     </ion-badge>
     <ion-buttons slot="end">
       <ion-button (click)="onSettingsClicked()" *ngIf="readOnly">

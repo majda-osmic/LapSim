@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IProjectLead } from '../data-interfaces';
-import { MockService } from './mock.service';
 import { UserData } from '../providers/user-data';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { UserData } from '../providers/user-data';
 export class ProjectLeadService {
 
   private leads: IProjectLead[] = [];
-  constructor(private mockService: MockService, private userData: UserData) { }
+  constructor(private http: HttpClient, private userData: UserData) { }
 
   async getProjectLeads(): Promise<IProjectLead[]> {
     const isAdmin = await this.userData.isLoggedInAsAdmin();
@@ -18,13 +18,11 @@ export class ProjectLeadService {
     }
 
     if (this.leads === undefined || this.leads.length === 0) {
-      this.leads = this.mockService.getProjectLeads();
+      this.leads = await this.http.get<IProjectLead[]>(`api/projectLeaders`).toPromise();
     }
+
+    this.leads.forEach(element => console.log(element));
     return this.leads;
   }
 
-  async getProjectLeader(userName: string): Promise<IProjectLead> {
-    const leads = await this.getProjectLeads();
-    return leads.find(item => item.userName === userName);
-  }
 }

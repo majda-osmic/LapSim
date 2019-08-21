@@ -7,9 +7,9 @@ export interface ITeam {
     usedBudget: number;
 }
 
+
 export interface IAccountInfo {
     id: string;
-    uniqueId: string;
     name: string;
     cpus: number;
 }

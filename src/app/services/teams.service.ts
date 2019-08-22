@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ITeam, IAccountDetail, IProjectLead } from '../data-interfaces';
-import { MockService } from './mock.service';
-import { IAccountDisplay } from '../display-interfaces';
+import { ITeam,  IAccountInfo } from '../data-interfaces';
 import { UserData } from '../providers/user-data';
 import { Events } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { IAccountDisplay } from '../display-interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamsService {
   private teams: ITeam[];
-  private accounts: IAccountDetail[];
-  private teamToAccountDisplayMapping: Map<string, IAccountDetail[]> = new Map<string, IAccountDetail[]>();
+   private teamToAccountDisplayMapping: Map<string, IAccountDisplay[]> = new Map<string, IAccountDisplay[]>();
 
-  constructor(private http: HttpClient, private mockService: MockService, private userData: UserData, private events: Events) {
+  constructor(private http: HttpClient, private userData: UserData, private events: Events) {
     this.events.subscribe('user:logout', () => {
       this.clear();
     });
@@ -46,32 +44,22 @@ export class TeamsService {
   async getAccountDisplay(teamId: string): Promise<IAccountDisplay[]> {
     if (this.teamToAccountDisplayMapping[teamId] === undefined) {
       const team = await this.getTeam(teamId);
-      if (team === undefined) { // todo: error
+      if (team === undefined) {
         this.clear();
         return [];
       }
-      const accountIds = team.accounts.map(account => account.id);
-      const accountDetails = this.getAllAccounts().filter(account => accountIds.includes(account.id));
       const accountsDisplay = [];
-      accountDetails.forEach(accountDetail => accountsDisplay.push(this.createAccountDisplay(team, accountDetail)));
+      team.accounts.forEach(account => accountsDisplay.push(this.createAccountDisplay(account)));
       this.teamToAccountDisplayMapping[teamId] = accountsDisplay;
     }
 
     return this.teamToAccountDisplayMapping[teamId];
   }
 
-  private getAllAccounts(): IAccountDetail[] {
-    if (this.accounts === undefined || this.accounts.length === 0) {
-      this.accounts = this.mockService.createMockAccounts(); // temporary
-    }
-    return this.accounts;
-  }
-
-  private createAccountDisplay(team: ITeam, accountDetail: IAccountDetail): IAccountDisplay {
+  private createAccountDisplay(accountInfo: IAccountInfo): IAccountDisplay {
     const display: IAccountDisplay = {
-      detail: accountDetail,
-      info: team.accounts.find(item => item.id === accountDetail.id),
-      // TODO: these should be saved into user settings
+      info: accountInfo,
+      // TODO: these should be saved to and retrieved from user settings
       checked: true,
       color: 'red',
     };
@@ -80,7 +68,6 @@ export class TeamsService {
 
   private clear() {
     this.teams = [];
-    this.accounts = [];
     this.teamToAccountDisplayMapping.clear();
   }
 

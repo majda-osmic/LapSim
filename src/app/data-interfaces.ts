@@ -12,12 +12,12 @@ export interface IAccountInfo {
     id: string;
     name: string;
     cpus: number;
+    softwarePackage: ISoftwarePackage;
 }
 
 export interface IAccountDetail {
     id: string;
     simulations: ISimulation[];
-    softwarePackage: ISoftwarePackage;
 }
 
 export interface ISimulation {

@@ -37,9 +37,9 @@ export class SimulationsService {
   }
 
   private async setVisibileSimulationsForTeam(teamId: string) {
-    const result = await this.teamService.getAccountDisplay(teamId);
-    const accountDisplay = result.filter(item => item.checked === true);
-    this.teamVisibleSimulationMapping[teamId] = [].concat(...accountDisplay.map(data => data.detail.simulations));
+    // const result = await this.teamService.getAccountDisplay(teamId);
+    // const accountDisplay = result.filter(item => item.checked === true);
+    // this.teamVisibleSimulationMapping[teamId] = [].concat(...accountDisplay.map(data => data.detail.simulations));
   }
 
   async notifyAccountVisibilityChange(teamId: string) {

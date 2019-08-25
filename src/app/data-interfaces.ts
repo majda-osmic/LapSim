@@ -15,11 +15,6 @@ export interface IAccountInfo {
     softwarePackage: ISoftwarePackage;
 }
 
-export interface IAccountDetail {
-    id: string;
-    simulations: ISimulation[];
-}
-
 export interface ISimulation {
     id: string;
     name: string;

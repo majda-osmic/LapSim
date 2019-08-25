@@ -1,4 +1,4 @@
-import { IAccountInfo,  IAccountDetail } from './data-interfaces';
+import { IAccountInfo } from './data-interfaces';
 
 export interface IAccountDisplay {
     info: IAccountInfo;

@@ -1,7 +1,7 @@
 <team-toolbar [team]="team"></team-toolbar>
 <ion-content>
   <ion-chip color="warning" [hidden]="simulations?.length > 0">
-    No account selected
+    No simulations to display
   </ion-chip>
   <ion-list *ngFor="let sim of simulations">
     <ion-item>

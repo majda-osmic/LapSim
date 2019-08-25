@@ -3,7 +3,7 @@
     <div class="inline expander">
       <ion-icon slot="start" name="arrow-dropright" (click)="showDetails(team)" [hidden]="expandedMap[team.id]===true">
       </ion-icon>
-      <ion-icon slot="start" name="arrow-dropdown" (click)="hideDetails(team)" [hidden]="expandedMap[team.id]===false">
+      <ion-icon slot="start" name="arrow-dropdown" (click)="hideDetails(team)" [hidden]="expandedMap[team.id]!==true">
       </ion-icon>
       <ion-label (click)="viewTeam(team)" class="click-label">
         {{team.name}}

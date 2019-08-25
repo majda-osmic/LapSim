@@ -1,5 +1,5 @@
 <ion-list *ngFor="let leader of projectLeaders">
-  <ion-item detail *ngIf="selectedLeader !== leader" (click)="onItemSelected(leader)">
+  <ion-item detail *ngIf="leader != null && selectedLeader !== leader" (click)="onItemSelected(leader)">
     <ion-label>
       {{leader.userName}}
     </ion-label>
@@ -14,7 +14,7 @@
       </ion-label>
     </ion-row>
     <ion-row>
-      <teams [loadedTeams]="leader.teams"></teams>
+      <teams [teamsToDisplay]="leader.teams"></teams>
     </ion-row>
   </ion-grid>
 </ion-list>

@@ -21,7 +21,6 @@ export class ProjectLeadService {
       this.leads = await this.http.get<IProjectLead[]>(`api/projectLeaders`).toPromise();
     }
 
-    this.leads.forEach(element => console.log(element));
     return this.leads;
   }
 

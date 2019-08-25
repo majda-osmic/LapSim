@@ -4,6 +4,7 @@ import { UserData } from '../providers/user-data';
 import { Events } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { IAccountDisplay } from '../display-interfaces';
+import { ItemHeightFn } from '@ionic/core';
 
 @Injectable({
   providedIn: 'root'

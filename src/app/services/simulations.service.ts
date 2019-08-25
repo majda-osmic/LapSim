@@ -43,17 +43,16 @@ export class SimulationsService {
 
   private async retrieveSimulationData(visibleIds: string[]): Promise<ISimulation[]> {
     const result = [];
-
     // tslint:disable-next-line: prefer-for-of
     for (let index = 0; index < visibleIds.length; index++) {
 
+      //TODO: add api for retrieval of serveral ids
       const id = visibleIds[index];
       if (this.accountToSimulationMapping[id] === undefined) {
         this.accountToSimulationMapping[id] = await this.getData(id);
       }
-      result.push(this.accountToSimulationMapping[id]);
+      result.push(...this.accountToSimulationMapping[id]);
     }
-
     return result;
 
   }

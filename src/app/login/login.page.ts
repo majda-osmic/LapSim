@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUserOptions } from '../data-interfaces';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { UserData } from '../providers/user-data';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'login',
@@ -12,9 +12,10 @@ import { UserData } from '../providers/user-data';
 export class LoginPage {
   login: IUserOptions = { userName: '', password: '', isAdmin: false };
   submitted = false;
+  loggedIn = false;
 
   constructor(
-    public userData: UserData,
+    public userData: AuthService,
     public router: Router
   ) { }
 
@@ -22,7 +23,13 @@ export class LoginPage {
     this.submitted = true;
 
     if (form.valid) {
-      this.userData.login(this.login.userName);
+      this.userData.login(this.login.userName, this.login.password).subscribe(result => {
+        this.loggedIn = result !== false;
+        if (!this.loggedIn) {
+          form.reset(); // TODO: set message
+        }
+      });
+
     }
   }
 }

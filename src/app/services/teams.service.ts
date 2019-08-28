@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ITeam,  IAccountInfo } from '../data-interfaces';
-import { UserData } from '../providers/user-data';
+import { AuthService } from '../services/auth.service';
 import { Events } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { IAccountDisplay } from '../display-interfaces';
@@ -12,7 +12,7 @@ export class TeamsService {
   private teams: ITeam[];
    private teamToAccountDisplayMapping: Map<string, IAccountDisplay[]> = new Map<string, IAccountDisplay[]>();
 
-  constructor(private http: HttpClient, private userData: UserData, private events: Events) {
+  constructor(private http: HttpClient, private userData: AuthService, private events: Events) {
     this.events.subscribe('user:logout', () => {
       this.clear();
     });

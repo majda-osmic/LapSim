@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
 import { IonicStorageModule } from '@ionic/storage';
-import { UserData } from '../providers/user-data';
+import { AuthService } from '../services/auth.service';
 
 
 const routes: Routes = [
@@ -26,6 +26,6 @@ const routes: Routes = [
     IonicStorageModule.forRoot()
   ],
   declarations: [LoginPage],
-  providers: [UserData]
+  providers: [AuthService]
 })
 export class LoginPageModule {}

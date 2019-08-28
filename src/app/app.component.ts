@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Platform, NavController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { UserData } from './providers/user-data';
+import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private statusBar: StatusBar,
     private events: Events,
-    private userData: UserData
+    private userData: AuthService
   ) {
     this.initializeApp();
   }

@@ -14,7 +14,7 @@ import { TeamComponent } from './components/team/team.component';
 import { FormsModule } from '@angular/forms';
 import { SimulationsComponent } from './components/simulations/simulations.component';
 import { TeamsComponent } from './components/teams/teams.component';
-import { UserData } from './providers/user-data';
+import { AuthService } from './services/auth.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { ProjectLeadsComponent } from './components/project-leads/project-leads.component';
 import { TeamSettingsComponent } from './components/team-settings/team-settings.component';
@@ -49,7 +49,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
-    UserData,
+    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

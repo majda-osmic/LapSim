@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IProjectLead } from '../data-interfaces';
-import { UserData } from '../providers/user-data';
+import { AuthService } from '../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProjectLeadService {
 
   private leads: IProjectLead[] = [];
-  constructor(private http: HttpClient, private userData: UserData) { }
+  constructor(private http: HttpClient, private userData: AuthService) { }
 
   async getProjectLeads(): Promise<IProjectLead[]> {
     const isAdmin = await this.userData.isLoggedInAsAdmin();

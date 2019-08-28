@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { ISimulation } from '../data-interfaces';
 import { TeamsService } from './teams.service';
-import { UserData } from '../providers/user-data';
+import { AuthService } from '../services/auth.service';
 import { Events } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { IAccountDisplay } from '../display-interfaces';
@@ -15,7 +15,7 @@ export class SimulationsService {
 
   @Output() visibleItemsChanged: EventEmitter<string> = new EventEmitter();
 
-  constructor(private http: HttpClient, private teamService: TeamsService, private userData: UserData, private events: Events) {
+  constructor(private http: HttpClient, private teamService: TeamsService, private userData: AuthService, private events: Events) {
     this.events.subscribe('user:login', () => {
       this.accountToSimulationMapping.clear();
     });
@@ -46,7 +46,7 @@ export class SimulationsService {
     // tslint:disable-next-line: prefer-for-of
     for (let index = 0; index < visibleIds.length; index++) {
 
-      //TODO: add api for retrieval of serveral ids
+      // TODO: add api for retrieval of serveral ids
       const id = visibleIds[index];
       if (this.accountToSimulationMapping[id] === undefined) {
         this.accountToSimulationMapping[id] = await this.getData(id);

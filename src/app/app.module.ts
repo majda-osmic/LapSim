@@ -20,7 +20,8 @@ import { ProjectLeadsComponent } from './components/project-leads/project-leads.
 import { TeamSettingsComponent } from './components/team-settings/team-settings.component';
 import { TeamToolbarComponent } from './components/team-toolbar/team-toolbar.component';
 import { LabelTextComponent } from './components/label-text/label-text.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {  HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './services/jwt-interceptor.service';
 
 
 @NgModule({
@@ -50,7 +51,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     StatusBar,
     SplashScreen,
     AuthService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+
   ],
   bootstrap: [AppComponent]
 })

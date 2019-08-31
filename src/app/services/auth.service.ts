@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
+import { IUserOptions } from '../data-interfaces';
 
 
 
@@ -25,9 +26,13 @@ export class AuthService {
         const loginInfo = { username: userName, password };
         const options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
-        return this.http.post('api/users/authenticate', loginInfo, options)
+
+        // TODO: simply save the entire object to role
+        return this.http.post<IUserOptions>('api/users/authenticate', loginInfo, options)
             .pipe(tap(data => {
-                this.setUsername(userName);
+                this.setUsername(data.userName);
+                this.setToken(data.token);
+                this.setRole(data.role.value);
                 this.events.publish('user:login');
                 return of(true);
             }))
@@ -51,6 +56,16 @@ export class AuthService {
         return this.storage.set('userName', username);
     }
 
+    
+    private setToken(token: string): Promise<any> {
+        return this.storage.set('token', token);
+    }
+
+    private setRole(role: string): Promise<any> {
+        return this.storage.set('role', role);
+    }
+
+
 
     getUsername(): Promise<string> {
         return this.storage.get('userName').then((value) => {
@@ -59,8 +74,8 @@ export class AuthService {
     }
 
     isLoggedInAsAdmin(): Promise<boolean> {
-        return this.storage.get('userName').then((value) => {
-            return value === 'majda'; // TODO: server
+        return this.storage.get('role').then((value) => {
+            return value === 'admin'; // TODO: server
         });
     }
 
@@ -68,5 +83,9 @@ export class AuthService {
         return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
             return value === true;
         });
+    }
+
+    getToken(): Promise<string> {
+        return this.storage.get('token');
     }
 }

@@ -39,7 +39,12 @@ export interface ISoftware {
 export interface IUserOptions {
     userName: string;
     password: string;
-    isAdmin: boolean;
+    token?: string;
+    role?: IRole;
+}
+
+export interface IRole {
+    value: string;
 }
 
 export interface IProjectLead {

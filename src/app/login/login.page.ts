@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IUserOptions } from '../data-interfaces';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  login: IUserOptions = { userName: '', password: '', isAdmin: false };
+  login: IUserOptions = { userName: '', password: ''};
   submitted = false;
   loggedIn = false;
 

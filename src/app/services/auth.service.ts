@@ -14,6 +14,7 @@ import { IUserOptions } from '../data-interfaces';
 })
 export class AuthService {
     HAS_LOGGED_IN = 'hasLoggedIn';
+    USER = 'currentUser';
 
     constructor(
         private http: HttpClient,
@@ -23,69 +24,74 @@ export class AuthService {
 
     login(userName: string, password: string): Observable<any> {
 
-        const loginInfo = { username: userName, password };
+        const loginInfo = { userName, password };
         const options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-
 
         // TODO: simply save the entire object to role
         return this.http.post<IUserOptions>('api/users/authenticate', loginInfo, options)
-            .pipe(tap(data => {
-                this.setUsername(data.userName);
-                this.setToken(data.token);
-                this.setRole(data.role.value);
-                this.events.publish('user:login');
-                return of(true);
+            .pipe(tap(user => {
+                if (user && user.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    this.storage.set(this.USER, JSON.stringify(user)).then(() => this.events.publish('user:login'));
+
+                }
             }))
             .pipe(catchError(err => {
-                console.error(err);
                 return of(false);
             }));
     }
 
 
 
+
     logout() {
-        this.storage.remove(this.HAS_LOGGED_IN).then(() => {
-            return this.storage.remove('userName');
-        }).then(() => {
-            this.events.publish('user:logout');
-        });
-    }
-
-    private setUsername(username: string): Promise<any> {
-        return this.storage.set('userName', username);
-    }
-
-    
-    private setToken(token: string): Promise<any> {
-        return this.storage.set('token', token);
-    }
-
-    private setRole(role: string): Promise<any> {
-        return this.storage.set('role', role);
+        this.storage.remove(this.USER)
+            .then(() => {
+                this.events.publish('user:logout');
+            });
     }
 
 
 
     getUsername(): Promise<string> {
-        return this.storage.get('userName').then((value) => {
-            return value;
+        return this.getUser().then((value) => {
+            if (value) {
+                return value.userName;
+            }
         });
     }
 
     isLoggedInAsAdmin(): Promise<boolean> {
-        return this.storage.get('role').then((value) => {
-            return value === 'admin'; // TODO: server
+        return this.getUser().then((value) => {
+            if (value) {
+                return value.role.value === 'Admin';
+            }
         });
     }
 
     isLoggedIn(): Promise<boolean> {
-        return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
-            return value === true;
+        return this.getUser().then((value) => {
+            if (value) {
+                return true;
+            }
+            return false;
+
         });
     }
 
-    getToken(): Promise<string> {
-        return this.storage.get('token');
+     getToken(): Promise<string> {
+        return this.getUser().then((value) => {
+            if (value) {
+                return value.token;
+            }
+        });
+    }
+
+    private getUser(): Promise<IUserOptions> {
+        return this.storage.get(this.USER).then((value) => {
+            if (value) {
+                return JSON.parse(value);
+            }
+        });
     }
 }

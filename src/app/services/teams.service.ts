@@ -12,24 +12,26 @@ export class TeamsService {
   private teams: ITeam[];
    private teamToAccountDisplayMapping: Map<string, IAccountDisplay[]> = new Map<string, IAccountDisplay[]>();
 
-  constructor(private http: HttpClient, private userData: AuthService, private events: Events) {
+  constructor(private http: HttpClient, private auth: AuthService, private events: Events) {
     this.events.subscribe('user:logout', () => {
+    console.log('clearing teams cache');
       this.clear();
     });
   }
 
   async getTeams(): Promise<ITeam[]> {
-    const loggedIn = this.userData.isLoggedIn();
+    const loggedIn = this.auth.isLoggedIn();
     if (!loggedIn) {
       this.clear();
       return null; // todo: error
     }
     if (this.teams === undefined || this.teams.length === 0) {
-      if (await this.userData.isLoggedInAsAdmin()) {
+      if (await this.auth.isLoggedInAsAdmin()) {
         this.teams = await this.http.get<ITeam[]>(`/api/teams/`).toPromise();
       } else {
-        const userName = await this.userData.getUsername();
+        const userName = await this.auth.getUsername();
         this.teams = await this.http.get<ITeam[]>(`api/teams/pl/` + userName).toPromise();
+      
       }
     }
     return this.teams;

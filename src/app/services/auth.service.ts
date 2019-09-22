@@ -75,11 +75,10 @@ export class AuthService {
                 return true;
             }
             return false;
-
         });
     }
 
-     getToken(): Promise<string> {
+    getToken(): Promise<string> {
         return this.getUser().then((value) => {
             if (value) {
                 return value.token;

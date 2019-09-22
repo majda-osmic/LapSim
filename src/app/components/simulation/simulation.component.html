@@ -7,11 +7,8 @@
       </ion-label>
     </ion-col>
     <ion-col>
-      <ng-template let-timeSpan="aVariable"
-        [ngTemplateOutletContext]="{ aVariable: +(simulation.endTime) - +(simulation.startTime) }"
-        [ngTemplateOutlet]="selfie" #selfie>
-        <label-text label="time" text="{{timeSpan.toLocaleString()}}"></label-text>
-      </ng-template>
+
+      <label-text label="duration" text="{{simulation.duration.getHours()}}h {{simulation.duration.getMinutes()}}m"></label-text>
     </ion-col>
     <ion-col>
       <label-text label="CPUs" text="{{simulation.cpus}}"></label-text>

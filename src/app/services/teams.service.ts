@@ -14,7 +14,6 @@ export class TeamsService {
 
   constructor(private http: HttpClient, private auth: AuthService, private events: Events) {
     this.events.subscribe('user:logout', () => {
-    console.log('clearing teams cache');
       this.clear();
     });
   }
@@ -31,7 +30,6 @@ export class TeamsService {
       } else {
         const userName = await this.auth.getUsername();
         this.teams = await this.http.get<ITeam[]>(`api/teams/pl/` + userName).toPromise();
-      
       }
     }
     return this.teams;

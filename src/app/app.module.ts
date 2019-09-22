@@ -20,7 +20,7 @@ import { ProjectLeadsComponent } from './components/project-leads/project-leads.
 import { TeamSettingsComponent } from './components/team-settings/team-settings.component';
 import { TeamToolbarComponent } from './components/team-toolbar/team-toolbar.component';
 import { LabelTextComponent } from './components/label-text/label-text.component';
-import {  HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './services/jwt-interceptor.service';
 
 

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ITeam,  IAccountInfo } from '../data-interfaces';
+import { ITeam } from '../data-interfaces';
 import { AuthService } from '../services/auth.service';
 import { Events } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { IAccountDisplay } from '../display-interfaces';
+import { Account } from '../display-classes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamsService {
   private teams: ITeam[];
-   private teamToAccountDisplayMapping: Map<string, IAccountDisplay[]> = new Map<string, IAccountDisplay[]>();
+   private teamToAccountDisplayMapping: Map<string, Account[]> = new Map<string, Account[]>();
 
   constructor(private http: HttpClient, private auth: AuthService, private events: Events) {
     this.events.subscribe('user:logout', () => {
@@ -41,7 +41,7 @@ export class TeamsService {
     return this.teams.find(item => item.id === id);
   }
 
-  async getAccountDisplay(teamId: string): Promise<IAccountDisplay[]> {
+  async getAccountDisplay(teamId: string): Promise<Account[]> {
     if (this.teamToAccountDisplayMapping[teamId] === undefined) {
       const team = await this.getTeam(teamId);
       if (team === undefined) {
@@ -49,20 +49,10 @@ export class TeamsService {
         return [];
       }
       const accountsDisplay = [];
-      team.accounts.forEach(account => accountsDisplay.push(this.createAccountDisplay(account)));
+      team.accounts.forEach(account => accountsDisplay.push(new Account(account)));
       this.teamToAccountDisplayMapping[teamId] = accountsDisplay;
     }
     return this.teamToAccountDisplayMapping[teamId];
-  }
-
-  private createAccountDisplay(accountInfo: IAccountInfo): IAccountDisplay {
-    const display: IAccountDisplay = {
-      info: accountInfo,
-      // TODO: these should be saved to and retrieved from user settings
-      checked: true,
-      color: 'red',
-    };
-    return display;
   }
 
   private clear() {

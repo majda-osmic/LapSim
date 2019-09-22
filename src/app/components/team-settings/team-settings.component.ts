@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TeamsService } from 'src/app/services/teams.service';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'src/app/data-interfaces';
-import { IAccountDisplay } from 'src/app/display-interfaces';
+import { Account } from 'src/app/display-classes';
 
 @Component({
   selector: 'team-settings',
@@ -13,15 +13,15 @@ export class TeamSettingsComponent implements OnInit {
 
   teamID: string;
   team: ITeam;
-  accounts: IAccountDisplay[];
+  accounts: Account[];
   editActive = false;
 
   constructor(private teamService: TeamsService, private route: ActivatedRoute) { }
 
   async ngOnInit() {
     this.teamID = this.route.snapshot.params.id;
-    this.teamService.getTeam(this.teamID).then(team => this.team = team);
-    this.teamService.getAccountDisplay(this.teamID).then(accounts => this.accounts = accounts);
+    this.team = await this.teamService.getTeam(this.teamID);
+    this.accounts = await this.teamService.getAccountDisplay(this.teamID);
   }
 
   onEdit() {
@@ -30,6 +30,7 @@ export class TeamSettingsComponent implements OnInit {
 
   onSave() {
     this.editActive = false;
+    // TODO: save data
   }
 
   onCancel() {

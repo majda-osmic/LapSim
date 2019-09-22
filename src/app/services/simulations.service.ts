@@ -4,8 +4,7 @@ import { TeamsService } from './teams.service';
 import { AuthService } from '../services/auth.service';
 import { Events } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { IAccountDisplay } from '../display-interfaces';
-import { map } from 'rxjs/operators';
+import { AccountDisplayData } from '../display-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -59,19 +58,11 @@ export class SimulationsService {
   }
 
   private async getData(accountId: string): Promise<ISimulation[]> {
-    return await this.http.get<ISimulation[]>(`/api/simulations/account/` + accountId)
-      .pipe(map(response => {
-          response.forEach(element => {
-            element.endTime = new Date(element.endTime);
-            element.startTime = new Date(element.startTime);
-            element.duration = new Date(element.endTime.getTime() - element.startTime.getTime());
-          });
-          return response;
-        })).toPromise();
+    return await this.http.get<ISimulation[]>(`/api/simulations/account/` + accountId).toPromise();
   }
 
 
-  private async getVisibleAccounts(teamId: string): Promise<IAccountDisplay[]> {
+  private async getVisibleAccounts(teamId: string): Promise<AccountDisplayData[]> {
     return (await this.teamService.getAccountDisplay(teamId)).filter(item => item.checked === true);
   }
 

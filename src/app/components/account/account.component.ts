@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { IAccountDisplay } from '../../display-interfaces';
+import { Account } from '../../display-classes';
 
 @Component({
   selector: 'account',
@@ -8,7 +8,7 @@ import { IAccountDisplay } from '../../display-interfaces';
 })
 export class AccountComponent implements OnInit {
 
-  @Input() account: IAccountDisplay;
+  @Input() account: Account;
   @Output() show = new EventEmitter();
 
   constructor() { }

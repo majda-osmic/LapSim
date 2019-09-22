@@ -13,21 +13,18 @@
               <label-text label="CPUs" text="{{account.info.cpus}}" canEdit="{{editActive}}" type="number"></label-text>
             </ion-col>
             <ion-col>
-              <label-text label="Simulations" text="{{account.detail.simulations.length}}"></label-text>
-            </ion-col>
-            <ion-col>
-              <label-text label="Last update" text="{{account.detail.softwarePackage.timestamp.toLocaleString()}}">
+              <label-text label="Last update" text="{{account.lastUpdate}}">
               </label-text>
             </ion-col>
             <ion-col>
-              <label-text label="ID" text="{{account.info.uniqueId}}"></label-text>
+              <label-text label="ID" text="{{account.info.id}}"></label-text>
             </ion-col>
           </ion-col>
           <ion-col>
             <ion-col>
               <ion-label>
                 <ion-text color="primary">Software:</ion-text>
-                <ion-list *ngFor="let item of account.detail.softwarePackage.software">
+                <ion-list *ngFor="let item of account.info.softwarePackage.software">
                   <ion-text>
                     {{item.name}} <p>{{item.version}}</p>
                   </ion-text>

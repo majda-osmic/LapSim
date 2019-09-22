@@ -18,8 +18,8 @@ export interface IAccountInfo {
 export interface ISimulation {
     id: string;
     name: string;
-    startTime: Date;
-    endTime: Date;
+    startTime: string;
+    endTime: string;
     duration: Date;
     cpus: number;
     usedBudget: number;
@@ -28,7 +28,7 @@ export interface ISimulation {
 }
 
 export interface ISoftwarePackage {
-    timestamp: Date;
+    timeStamp: string;
     software: ISoftware[];
 }
 

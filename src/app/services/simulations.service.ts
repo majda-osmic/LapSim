@@ -4,7 +4,7 @@ import { TeamsService } from './teams.service';
 import { AuthService } from '../services/auth.service';
 import { Events } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { AccountDisplayData } from '../display-interfaces';
+import { Account } from '../display-classes';
 
 @Injectable({
   providedIn: 'root'
@@ -62,7 +62,7 @@ export class SimulationsService {
   }
 
 
-  private async getVisibleAccounts(teamId: string): Promise<AccountDisplayData[]> {
+  private async getVisibleAccounts(teamId: string): Promise<Account[]> {
     return (await this.teamService.getAccountDisplay(teamId)).filter(item => item.checked === true);
   }
 

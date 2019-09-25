@@ -45,13 +45,18 @@ export class TeamsService {
     if (this.teamToAccountDisplayMapping[teamId] === undefined) {
       const team = await this.getTeam(teamId);
       if (team === undefined) {
+        console.log('team is unefined');
+
         this.clear();
         return [];
       }
       const accountsDisplay = [];
+      console.log(team.accounts);
       team.accounts.forEach(account => accountsDisplay.push(new Account(account)));
       this.teamToAccountDisplayMapping[teamId] = accountsDisplay;
     }
+
+    console.log(this.teamToAccountDisplayMapping[teamId][0].info);
     return this.teamToAccountDisplayMapping[teamId];
   }
 

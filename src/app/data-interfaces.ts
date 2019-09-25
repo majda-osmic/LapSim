@@ -20,7 +20,6 @@ export interface ISimulation {
     name: string;
     startTime: string;
     endTime: string;
-    duration: Date;
     cpus: number;
     usedBudget: number;
     runs: number;

@@ -3,7 +3,7 @@ import { ITeam } from 'src/app/data-interfaces';
 import { TeamsService } from 'src/app/services/teams.service';
 import { SimulationsService } from 'src/app/services/simulations.service';
 import { NavController } from '@ionic/angular';
-import { AccountDisplayData } from 'src/app/display-interfaces';
+import { Account } from 'src/app/display-classes';
 
 @Component({
   selector: 'team',
@@ -12,7 +12,7 @@ import { AccountDisplayData } from 'src/app/display-interfaces';
 })
 export class TeamComponent implements OnInit {
 
-  accounts: AccountDisplayData[];
+  accounts: Account[];
   team: ITeam;
   get data(): ITeam {
     return this.team;
